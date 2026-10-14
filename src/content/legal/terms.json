@@ -1,0 +1,220 @@
+{
+  "en": {
+    "title": "Terms of Service",
+    "lastUpdated": "2 August 2026",
+    "intro": [
+      "These Terms of Service (\"Terms\") govern access to and use of expire365 (the \"Service\"), a web application for inventory and product expiry tracking for shops and households.",
+      "By creating an account, signing in, or otherwise using the Service, you agree to these Terms. If you do not agree, do not use the Service."
+    ],
+    "sections": [
+      {
+        "heading": "1. The Service",
+        "paragraphs": [
+          "expire365 provides tools to scan barcodes, manage stock across locations, track expiry dates, import delivery documents, receive alerts, and related features we may add over time.",
+          "We may update, improve, suspend, or discontinue parts of the Service. Where a change materially reduces core functionality for paying customers, we will give reasonable notice when practical."
+        ]
+      },
+      {
+        "heading": "2. Accounts and eligibility",
+        "paragraphs": [
+          "You must provide accurate registration information and keep your credentials confidential. You are responsible for activity under your account.",
+          "Organization (client) owners may invite team members and control access to their locations. Team members must use the Service only as authorized by their organization.",
+          "We may refuse, suspend, or terminate accounts that violate these Terms, pose a security risk, or remain inactive for a prolonged period."
+        ]
+      },
+      {
+        "heading": "3. Acceptable use",
+        "paragraphs": [
+          "You agree not to:"
+        ],
+        "bullets": [
+          "Use the Service unlawfully or to infringe others' rights",
+          "Attempt to access accounts, data, or systems without authorization",
+          "Upload malware, scrape the Service aggressively, or overload our infrastructure",
+          "Misuse barcode, OCR, photo, or notification features in a way that harms others",
+          "Resell or sublicense the Service except as we expressly allow"
+        ]
+      },
+      {
+        "heading": "4. Your content and data",
+        "paragraphs": [
+          "You retain ownership of inventory data, product details, photos, and other content you submit (\"Customer Data\").",
+          "You grant us a limited license to host, process, back up, and display Customer Data solely to operate and improve the Service, provide support, and meet legal obligations.",
+          "You represent that you have the rights needed to submit Customer Data and that it does not violate law or third-party rights."
+        ]
+      },
+      {
+        "heading": "5. Third-party sources",
+        "paragraphs": [
+          "Product names, images, or catalog hints may come from third-party or public datasets. We do not guarantee that such information is complete, accurate, or up to date. Always verify critical product details yourself."
+        ]
+      },
+      {
+        "heading": "6. Alerts and notifications",
+        "paragraphs": [
+          "Expiry alerts and push notifications depend on device settings, installation as a progressive web app where required, network connectivity, and correct inventory data. The Service is an aid, not a substitute for your own stock checks or food-safety practices."
+        ]
+      },
+      {
+        "heading": "7. Fees",
+        "paragraphs": [
+          "Some features may be free; others may require a paid plan. Pricing, billing intervals, and included limits will be shown before you purchase or upgrade. Fees are non-refundable except where required by law or otherwise stated at purchase."
+        ]
+      },
+      {
+        "heading": "8. Intellectual property",
+        "paragraphs": [
+          "The Service, branding, software, and documentation are owned by the operator of expire365 or its licensors. These Terms do not transfer ownership of our intellectual property to you."
+        ]
+      },
+      {
+        "heading": "9. Disclaimer",
+        "paragraphs": [
+          "THE SERVICE IS PROVIDED \"AS IS\" AND \"AS AVAILABLE\". TO THE MAXIMUM EXTENT PERMITTED BY LAW, WE DISCLAIM WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE DO NOT WARRANT UNINTERRUPTED OR ERROR-FREE OPERATION, OR THAT EXPIRY ALERTS WILL ALWAYS PREVENT LOSS OR WASTE."
+        ]
+      },
+      {
+        "heading": "10. Limitation of liability",
+        "paragraphs": [
+          "TO THE MAXIMUM EXTENT PERMITTED BY LAW, WE ARE NOT LIABLE FOR INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR FOR LOST PROFITS, DATA, OR GOODWILL ARISING FROM YOUR USE OF THE SERVICE.",
+          "OUR TOTAL LIABILITY FOR CLAIMS RELATING TO THE SERVICE IN ANY TWELVE-MONTH PERIOD IS LIMITED TO THE AMOUNTS YOU PAID US FOR THE SERVICE IN THAT PERIOD.",
+          "Nothing in these Terms limits liability that cannot be limited under applicable law (including liability for death or personal injury caused by negligence, or for fraud)."
+        ]
+      },
+      {
+        "heading": "11. Termination",
+        "paragraphs": [
+          "You may stop using the Service at any time. Organization owners may request account closure via the in-app or public contact form.",
+          "Upon termination we may deactivate access and delete or anonymize Customer Data after a reasonable retention period, except where we must keep records by law."
+        ]
+      },
+      {
+        "heading": "12. Changes to these Terms",
+        "paragraphs": [
+          "We may update these Terms from time to time. The \"Last updated\" date will change when we do. Continued use after the effective date constitutes acceptance of the updated Terms. For material changes, we may provide additional notice in the app or by other reasonable means."
+        ]
+      },
+      {
+        "heading": "13. Governing law",
+        "paragraphs": [
+          "These Terms are governed by the laws of Bulgaria, without regard to conflict-of-law rules. Courts in Bulgaria have exclusive jurisdiction, unless mandatory consumer protections in your country of residence provide otherwise."
+        ]
+      },
+      {
+        "heading": "14. Contact",
+        "paragraphs": [
+          "For questions about these Terms, use the Contact form on the website or in the app. We will respond using the contact details you provide."
+        ]
+      }
+    ]
+  },
+  "bg": {
+    "title": "Общи условия",
+    "lastUpdated": "2 август 2026",
+    "intro": [
+      "Настоящите Общи условия („Условия“) уреждат достъпа и използването на expire365 („Услугата“) — уеб приложение за проследяване на наличности и срокове на годност за магазини и домакинства.",
+      "Създавайки акаунт, влизайки или по друг начин използвайки Услугата, вие приемате тези Условия. Ако не сте съгласни, не използвайте Услугата."
+    ],
+    "sections": [
+      {
+        "heading": "1. Услугата",
+        "paragraphs": [
+          "expire365 предоставя инструменти за сканиране на баркодове, управление на наличности по обекти, проследяване на срокове на годност, импорт на документи за доставка, известия и свързани функции, които можем да добавяме с времето.",
+          "Можем да актуализираме, подобряваме, спираме временно или прекратяваме части от Услугата. При съществено намаляване на основна функционалност за платени клиенти ще дадем разумно предизвестие, когато е практически възможно."
+        ]
+      },
+      {
+        "heading": "2. Акаунти и допустимост",
+        "paragraphs": [
+          "Трябва да предоставите точни данни при регистрация и да пазите данните си за вход в тайна. Вие носите отговорност за действията през вашия акаунт.",
+          "Собствениците на организация (клиент) могат да канят членове на екипа и да управляват достъпа до обектите. Членовете на екипа трябва да използват Услугата само според упълномощаването от организацията.",
+          "Можем да откажем, спрем или прекратим акаунти, които нарушават Условията, създават риск за сигурността или са неактивни продължително време."
+        ]
+      },
+      {
+        "heading": "3. Допустимо използване",
+        "paragraphs": [
+          "Съгласявате се да не:"
+        ],
+        "bullets": [
+          "Използвате Услугата незаконно или в нарушение на чужди права",
+          "Опитвате неоторизиран достъп до акаунти, данни или системи",
+          "Качвате злонамерен софтуер, агресивно извличате данни или претоварвате инфраструктурата",
+          "Злоупотребявате с баркод, OCR, снимки или известия по начин, който вреди на други",
+          "Препродавате или преотстъпвате Услугата, освен ако изрично сме позволили"
+        ]
+      },
+      {
+        "heading": "4. Вашето съдържание и данни",
+        "paragraphs": [
+          "Запазвате собствеността върху данни за наличности, продукти, снимки и друго съдържание, което подавате („Клиентски данни“).",
+          "Предоставяте ни ограничен лиценз да хостваме, обработваме, архивираме и показваме Клиентски данни единствено за работа и подобряване на Услугата, поддръжка и изпълнение на законови задължения.",
+          "Декларирате, че имате нужните права да подавате Клиентски данни и че те не нарушават закона или права на трети лица."
+        ]
+      },
+      {
+        "heading": "5. Източници от трети страни",
+        "paragraphs": [
+          "Имена, изображения или подсказки за продукти може да идват от публични или външни бази. Не гарантираме пълнота, точност или актуалност. Винаги проверявайте критичните данни сами."
+        ]
+      },
+      {
+        "heading": "6. Известия и аларми",
+        "paragraphs": [
+          "Известията за срокове зависят от настройките на устройството, инсталацията като приложение там, където е нужно, връзката с мрежата и коректните данни за наличности. Услугата е помощно средство, а не заместител на ваши проверки или практики за безопасност на храните."
+        ]
+      },
+      {
+        "heading": "7. Такси",
+        "paragraphs": [
+          "Някои функции може да са безплатни; други да изискват платен план. Цени, периоди и лимити ще бъдат показани преди покупка или надграждане. Таксите не се възстановяват, освен когато законът изисква или е посочено друго при покупката."
+        ]
+      },
+      {
+        "heading": "8. Интелектуална собственост",
+        "paragraphs": [
+          "Услугата, брандът, софтуерът и документацията принадлежат на оператора на expire365 или на негови лицензодатели. Тези Условия не прехвърлят нашата интелектуална собственост към вас."
+        ]
+      },
+      {
+        "heading": "9. Отказ от гаранции",
+        "paragraphs": [
+          "УСЛУГАТА СЕ ПРЕДОСТАВЯ „КАКТО Е“ И „КАКТО Е НАЛИЧНА“. В МАКСИМАЛНАТА СТЕПЕН, ДОПУСНАТА ОТ ЗАКОНА, ОТХВЪРЛЯМЕ ГАРАНЦИИ ЗА ПРОДАВАЕМОСТ, ПРИГОДНОСТ ЗА ОПРЕДЕЛЕНА ЦЕЛ И НЕНАРУШАВАНЕ. НЕ ГАРАНТИРАМЕ БЕЗПРЕКЪСНАТА ИЛИ БЕЗГРЕШНА РАБОТА, НИТО ЧЕ ИЗВЕСТИЯТА ЗА СРОКОВЕ ВИНАГИ ЩЕ ПРЕДОТВРАТЯТ ЗАГУБИ ИЛИ РАЗХИЩЕНИЕ."
+        ]
+      },
+      {
+        "heading": "10. Ограничение на отговорността",
+        "paragraphs": [
+          "В МАКСИМАЛНАТА СТЕПЕН, ДОПУСНАТА ОТ ЗАКОНА, НЕ НОСИМ ОТГОВОРНОСТ ЗА НЕПРЕКИ, СЛУЧАЙНИ, СПЕЦИАЛНИ, ПОСЛЕДВАЩИ ИЛИ НАКАЗАТЕЛНИ ЩЕТИ, НИТО ЗА ПРОПУСНАТИ ПОЛЗИ, ДАННИ ИЛИ РЕПУТАЦИЯ, ВЪЗНИКНАЛИ ОТ ИЗПОЛЗВАНЕТО НА УСЛУГАТА.",
+          "ОБЩАТА НИ ОТГОВОРНОСТ ЗА ИСКОВЕ, СВЪРЗАНИ С УСЛУГАТА, В КОЙТО И ДА Е ДВАНАДЕСЕТМЕСЕЧЕН ПЕРИОД, Е ОГРАНИЧЕНА ДО СУМИТЕ, КОИТО СТЕ НИ ПЛАТИЛИ ЗА УСЛУГАТА ЗА ТОЗИ ПЕРИОД.",
+          "Нищо в тези Условия не ограничава отговорност, която не може да бъде ограничена по приложимото право (включително за смърт или телесна повреда от небрежност, или за измама)."
+        ]
+      },
+      {
+        "heading": "11. Прекратяване",
+        "paragraphs": [
+          "Можете да спрете да използвате Услугата по всяко време. Собствениците на организация могат да поискат закриване на акаунт чрез формата за контакт в сайта или в приложението.",
+          "След прекратяване можем да деактивираме достъпа и да изтрием или анонимизираме Клиентски данни след разумен срок на съхранение, освен когато законът изисква запазване."
+        ]
+      },
+      {
+        "heading": "12. Промени в Условията",
+        "paragraphs": [
+          "Можем да актуализираме тези Условия. Датата „Последна актуализация“ ще се промени. Продължаването на ползването след влизането в сила означава приемане. При съществени промени можем да дадем допълнително уведомление в приложението или по друг разумен начин."
+        ]
+      },
+      {
+        "heading": "13. Приложимо право",
+        "paragraphs": [
+          "Тези Условия се уреждат от правото на Република България, без оглед на стълкновителни норми. Компетентни са българските съдилища, освен ако задължителна потребителска защита по местоживеенето ви изисква друго."
+        ]
+      },
+      {
+        "heading": "14. Контакт",
+        "paragraphs": [
+          "За въпроси по тези Условия използвайте формата за контакт на сайта или в приложението. Ще отговорим на предоставените от вас данни за връзка."
+        ]
+      }
+    ]
+  }
+}

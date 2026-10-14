@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>expire365 — Unpaid subscription lock (mockup)</title>
+  <style>
+    :root {
+      --bg: #09090b;
+      --fg: #fafafa;
+      --muted: #a1a1aa;
+      --border: #3f3f46;
+      --primary: #34d399;
+      --danger: #f87171;
+      --danger-bg: rgba(248, 113, 113, 0.1);
+      --danger-border: rgba(248, 113, 113, 0.35);
+      --card: #111113;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.45;
+      padding: 24px 16px 80px;
+    }
+    h1 { margin: 0 0 6px; font-size: 1.35rem; }
+    .lead { color: var(--muted); max-width: 720px; font-size: 14px; margin: 0 0 10px; }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--primary);
+      border: 1px solid rgba(52,211,153,.35);
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+    .note {
+      max-width: 720px;
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+    .note strong { color: var(--fg); }
+    .note ul { margin: 8px 0 0; padding-left: 1.2rem; }
+    .note li { margin: 4px 0; }
+    .screens {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      align-items: flex-start;
+    }
+    .phone-wrap { width: 320px; }
+    .screen-label {
+      font-size: 12px;
+      color: #71717a;
+      margin-bottom: 8px;
+    }
+    .phone {
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 0 0 1px #18181b, 0 20px 50px rgba(0,0,0,.45);
+    }
+    .notch {
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #71717a;
+      border-bottom: 1px solid var(--border);
+      background: #050506;
+    }
+    .body {
+      min-height: 560px;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+    }
+    .header {
+      padding: 14px 16px 8px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand { font-weight: 700; font-size: 15px; }
+    .brand span { color: var(--primary); }
+    .header-actions { display: flex; gap: 8px; }
+    .icon-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+    }
+    .store-chip {
+      margin: 0 16px 12px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+    }
+    .banner {
+      margin: 0 16px 16px;
+      padding: 14px 14px 14px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--danger-border);
+      background: var(--danger-bg);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .banner .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--danger);
+      margin-top: 5px;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 4px rgba(248,113,113,.15);
+    }
+    .banner h2 {
+      margin: 0 0 4px;
+      font-size: 14px;
+      color: #fecaca;
+      font-weight: 650;
+    }
+    .banner p {
+      margin: 0;
+      font-size: 13px;
+      color: #fca5a5;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 0 16px;
+      flex: 1;
+    }
+    .tile {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 12px;
+      background: var(--card);
+      min-height: 96px;
+      position: relative;
+    }
+    .tile.locked {
+      opacity: 0.38;
+      filter: grayscale(0.35);
+    }
+    .tile .ico { font-size: 22px; margin-bottom: 8px; }
+    .tile .label { font-size: 13px; font-weight: 600; }
+    .tile .lock {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .spacer { flex: 1; min-height: 24px; }
+    .nav {
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 8px 6px calc(10px + env(safe-area-inset-bottom, 0px));
+      background: rgba(9,9,11,.95);
+    }
+    .nav.four { grid-template-columns: repeat(4, 1fr); }
+    .tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      color: var(--muted);
+      padding: 6px 2px;
+      position: relative;
+    }
+    .tab.active { color: var(--primary); }
+    .tab.locked { opacity: 0.35; }
+    .tab .ico { font-size: 18px; }
+    .tab .x {
+      position: absolute;
+      top: 0;
+      right: 18%;
+      font-size: 9px;
+      color: var(--danger);
+    }
+    .compare {
+      margin-top: 36px;
+      max-width: 720px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .compare h3 { margin: 0 0 8px; color: var(--fg); font-size: 14px; }
+    .compare code {
+      font-size: 12px;
+      background: #18181b;
+      padding: 1px 6px;
+      border-radius: 6px;
+      color: #d4d4d8;
+    }
+    .choice {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .pill {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+    .pill.pick {
+      border-color: rgba(52,211,153,.45);
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="badge">Mockup · not live</div>
+  <h1>Unpaid client — homepage only</h1>
+  <p class="lead">
+    When a business account is unpaid (payments required + current month not marked paid),
+    the user can still open the app but all menus/features are blocked except the homepage.
+  </p>
+
+  <div class="note">
+    <strong>Proposed behavior</strong>
+    <ul>
+      <li><strong>Allowed:</strong> homepage (<code>/app</code>), logout, language (optional), support/contact (open question below).</li>
+      <li><strong>Blocked:</strong> Expiry, Scan/Add, Document, Orders, Team, Settings — bottom nav taps do nothing / redirect home.</li>
+      <li><strong>Message (EN):</strong> “Please check if your subscription is paid.”</li>
+      <li><strong>Message (BG):</strong> „Моля, проверете дали абонаментът ви е платен.“</li>
+      <li><strong>Change from today:</strong> currently unpaid users are blocked at <em>login</em>. This mockup lets them in, then locks the app.</li>
+    </ul>
+  </div>
+
+  <div class="screens">
+    <!-- A: Locked home -->
+    <div class="phone-wrap">
+      <div class="screen-label">A · Homepage when unpaid</div>
+      <div class="phone">
+        <div class="notch">9:41</div>
+        <div class="body">
+          <div class="header">
+            <div>
+              <div class="brand">expire<span>365</span></div>
+              <div style="font-size:12px;color:var(--muted);margin-top:2px">Home</div>
+            </div>
+            <div class="header-actions">
+              <div class="icon-btn" title="Language">EN</div>
+              <div class="icon-btn" title="Logout">⎋</div>
+            </div>
+          </div>
+
+          <div class="store-chip">
+            <span>Location · Store 1030</span>
+            <span style="opacity:.5">▾</span>
+          </div>
+
+          <div class="banner">
+            <div class="dot"></div>
+            <div>
+              <h2>Subscription unpaid</h2>
+              <p>Please check if your subscription is paid. Features stay locked until payment is confirmed.</p>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="tile locked"><div class="lock">🔒</div><div class="ico">📅</div><div class="label">Expiry</div></div>
+            <div class="tile locked"><div class="lock">🔒</div><div class="ico">📷</div><div class="label">Scan</div></div>
+            <div class="tile locked"><div class="lock">🔒</div><div class="ico">📄</div><div class="label">Document</div></div>
+            <div class="tile locked"><div class="lock">🔒</div><div class="ico">👥</div><div class="label">Team</div></div>
+            <div class="tile locked"><div class="lock">🔒</div><div class="ico">🛒</div><div class="label">Orders</div></div>
+            <div class="tile locked"><div class="lock">🔒</div><div class="ico">⚙️</div><div class="label">Settings</div></div>
+          </div>
+
+          <div class="spacer"></div>
+
+          <nav class="nav four" aria-label="Bottom nav locked">
+            <div class="tab active"><div class="ico">🏠</div>Home</div>
+            <div class="tab locked"><span class="x">✕</span><div class="ico">📅</div>Expiry</div>
+            <div class="tab locked"><span class="x">✕</span><div class="ico">＋</div>Add</div>
+            <div class="tab locked"><span class="x">✕</span><div class="ico">📄</div>Doc</div>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- B: Deep link blocked -->
+    <div class="phone-wrap">
+      <div class="screen-label">B · User opens /app/scan (or taps Add)</div>
+      <div class="phone">
+        <div class="notch">9:41</div>
+        <div class="body">
+          <div class="header">
+            <div>
+              <div class="brand">expire<span>365</span></div>
+              <div style="font-size:12px;color:var(--muted);margin-top:2px">Home</div>
+            </div>
+            <div class="header-actions">
+              <div class="icon-btn">EN</div>
+              <div class="icon-btn">⎋</div>
+            </div>
+          </div>
+
+          <div class="banner" style="margin-top:8px">
+            <div class="dot"></div>
+            <div>
+              <h2>Redirected to home</h2>
+              <p>Please check if your subscription is paid.</p>
+            </div>
+          </div>
+
+          <div style="padding:20px 18px;color:var(--muted);font-size:13px">
+            Any deep link (<code>/app/expiry</code>, <code>/app/scan</code>, …) sends the user back here.
+            API calls for inventory/scan also return forbidden while unpaid.
+          </div>
+
+          <div class="spacer"></div>
+
+          <nav class="nav four">
+            <div class="tab active"><div class="ico">🏠</div>Home</div>
+            <div class="tab locked"><span class="x">✕</span><div class="ico">📅</div>Expiry</div>
+            <div class="tab locked"><span class="x">✕</span><div class="ico">＋</div>Add</div>
+            <div class="tab locked"><span class="x">✕</span><div class="ico">📄</div>Doc</div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="compare">
+    <h3>Decide before implementation</h3>
+    <p style="margin:0 0 8px">
+      Trigger (same as today): business client with <code>paymentsRequired</code> and
+      <strong>no payment recorded for the current month</strong>. Households stay unlocked.
+    </p>
+    <div class="choice">
+      <span class="pill pick">Recommended: allow Contact/Support so they can reach you</span>
+      <span class="pill">Or lock Contact too (homepage + logout only)</span>
+    </div>
+    <p style="margin:12px 0 0">
+      Also confirm message tone: soft “please check…” vs stronger “access paused until payment is confirmed.”
+    </p>
+  </div>
+</body>
+</html>

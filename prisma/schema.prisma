@@ -1,0 +1,500 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum ClientRole {
+  OWNER
+  MEMBER
+}
+
+model User {
+  id                  String      @id @default(cuid())
+  username            String      @unique
+  /** Optional personal / display name (shown in team & schedule when set). */
+  displayName         String?
+  email               String?
+  passwordHash        String
+  role                Role        @default(USER)
+  clientRole          ClientRole?
+  active              Boolean     @default(true)
+  mustChangePassword  Boolean     @default(false)
+  clientId            String?
+  client              Client?     @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  storeLinks          UserStore[]
+  pushSubscriptions   PushSubscription[]
+  pushNotificationLogs PushNotificationLog[]
+  auditLogs           AuditLog[]
+  documentOcrScans    DocumentOcrScan[]
+  supportRequests     SupportRequest[]
+  priceReducedEntries InventoryEntry[] @relation("InventoryPriceReducedBy")
+  addedInventoryEntries InventoryEntry[] @relation("InventoryAddedBy")
+  whatsNewSeen        WhatsNewSeen[]
+  scheduleShifts      ScheduleShift[]
+  scheduleDayExclusions ScheduleDayExclusion[]
+  finalizedScheduleWeeks StoreScheduleWeek[] @relation("ScheduleFinalizedBy")
+  /** Expiry push notification preferences (phases 1–3). */
+  expiryNotifyEarlyEnabled     Boolean @default(true)
+  expiryNotifyEarlyDays        Int     @default(14)
+  expiryNotifyUrgentEnabled    Boolean @default(true)
+  expiryNotifyUrgentDays       Int     @default(3)
+  expiryNotifySchedule         String  @default("daily")
+  expiryNotifyTime1            String  @default("09:00")
+  expiryNotifyTime2            String  @default("18:00")
+  expiryNotifyMinIntervalHours Int     @default(24)
+  expiryQuietHoursEnabled      Boolean @default(true)
+  expiryQuietHoursStart        String  @default("22:00")
+  expiryQuietHoursEnd          String  @default("07:00")
+  expiryNotifyTimezone         String  @default("Europe/Sofia")
+  /** JSON string[] of store ids; null = all assigned stores. */
+  expiryNotifyStoreIdsJson     String?
+  expiryNotifyPrefsCustomized  Boolean @default(false)
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+
+  @@unique([email])
+  @@index([clientId])
+}
+
+model Client {
+  id                 String    @id @default(cuid())
+  name               String
+  phone              String?
+  additionalInfo     String?
+  active             Boolean   @default(true)
+  homeUser           Boolean   @default(false)
+  /**
+   * Admin master switch: when false, schedule is unavailable for this account
+   * (Team/Home/API). New accounts default to on.
+   */
+  scheduleEnabled    Boolean   @default(true)
+  /**
+   * Staff schedule visibility for this account (only when scheduleEnabled):
+   * disabled | private (owner only via Team) | public (everyone, home entry).
+   */
+  scheduleAccess     String    @default("private")
+  /** When false (default), this client is not required to pay. */
+  paymentsRequired   Boolean   @default(false)
+  /**
+   * First calendar month payments are billed from (set when paymentsRequired turns on).
+   * Access lock applies only after a billed month before the current month stays unpaid.
+   */
+  paymentsRequiredSince DateTime?
+  /**
+   * @deprecated Fee is per location (`Store.monthlyFee`). Kept for legacy rows;
+   * billing uses the sum of active location fees.
+   */
+  monthlyFeePerStore Float     @default(20)
+  /** Business client who referred this client (business → business only). */
+  referredByClientId String?
+  referredBy         Client?   @relation("ClientReferrals", fields: [referredByClientId], references: [id], onDelete: SetNull)
+  referrals          Client[]  @relation("ClientReferrals")
+  /** Defaults copied for new users until they customize notification prefs. */
+  expiryDefaultEarlyDays        Int?
+  expiryDefaultUrgentDays       Int?
+  expiryDefaultSchedule         String?
+  expiryDefaultTime1            String?
+  expiryDefaultTime2            String?
+  expiryDefaultMinIntervalHours Int?
+  expiryDefaultQuietEnabled     Boolean?
+  expiryDefaultQuietStart       String?
+  expiryDefaultQuietEnd         String?
+  expiryDefaultTimezone         String?
+  users              User[]
+  stores             Store[]
+  payments           Payment[]
+  supportRequests    SupportRequest[]
+  minimartLocatorStores MinimartLocatorStore[]
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  @@index([referredByClientId])
+}
+
+model Store {
+  id             String           @id @default(cuid())
+  clientId       String
+  client         Client           @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  name           String
+  address        String?
+  phone          String?
+  additionalInfo String?
+  active         Boolean          @default(true)
+  /** Monthly fee for this location (€). Client total = sum of active location fees. */
+  monthlyFee     Float            @default(20)
+  userLinks      UserStore[]
+  inventory      InventoryEntry[]
+  buyList        BuyListEntry[]
+  favourites     FavouriteProduct[]
+  supportRequests SupportRequest[]
+  scheduleWeeks  StoreScheduleWeek[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@index([clientId])
+}
+
+enum ScheduleWeekStatus {
+  DRAFT
+  FINALIZED
+}
+
+/** One store’s roster week (Mon–Sun). Hours stored as minutes from midnight. */
+model StoreScheduleWeek {
+  id                String             @id @default(cuid())
+  storeId           String
+  store             Store              @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  /** Monday YYYY-MM-DD (local calendar day). */
+  weekStart         String
+  /** @deprecated Prefer StoreScheduleDay — kept for older rows. */
+  mode              String             @default("auto")
+  /** @deprecated Prefer StoreScheduleDay. */
+  status            ScheduleWeekStatus @default(DRAFT)
+  finalizedAt       DateTime?
+  finalizedByUserId String?
+  finalizedByUser   User?              @relation("ScheduleFinalizedBy", fields: [finalizedByUserId], references: [id], onDelete: SetNull)
+  days              StoreScheduleDay[]
+  shifts            ScheduleShift[]
+  dayExclusions     ScheduleDayExclusion[]
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  @@unique([storeId, weekStart])
+  @@index([storeId])
+}
+
+/** Per-day mode + finalize state within a week. */
+model StoreScheduleDay {
+  id          String             @id @default(cuid())
+  weekId      String
+  week        StoreScheduleWeek  @relation(fields: [weekId], references: [id], onDelete: Cascade)
+  /** 0 = Monday … 6 = Sunday */
+  dayIndex    Int
+  /** auto | manual */
+  mode        String             @default("auto")
+  status      ScheduleWeekStatus @default(DRAFT)
+  finalizedAt DateTime?
+  updatedAt   DateTime           @updatedAt
+
+  @@unique([weekId, dayIndex])
+  @@index([weekId])
+}
+
+model ScheduleShift {
+  id       String            @id @default(cuid())
+  weekId   String
+  week     StoreScheduleWeek @relation(fields: [weekId], references: [id], onDelete: Cascade)
+  userId   String
+  user     User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dayIndex Int
+  startMin Int
+  endMin   Int
+
+  @@index([weekId, dayIndex])
+  @@index([userId])
+}
+
+/** Owner excluded this user from the schedule for one day (not in auto-fill). */
+model ScheduleDayExclusion {
+  id       String            @id @default(cuid())
+  weekId   String
+  week     StoreScheduleWeek @relation(fields: [weekId], references: [id], onDelete: Cascade)
+  userId   String
+  user     User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  /** 0 = Monday … 6 = Sunday */
+  dayIndex Int
+
+  @@unique([weekId, userId, dayIndex])
+  @@index([weekId, dayIndex])
+  @@index([userId])
+}
+
+model UserStore {
+  userId  String
+  storeId String
+  user    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  store   Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@id([userId, storeId])
+}
+
+model Product {
+  id        String           @id @default(cuid())
+  barcode   String           @unique
+  name      String
+  imagePath String?
+  inventory InventoryEntry[]
+  buyList   BuyListEntry[]
+  favourites FavouriteProduct[]
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  @@index([name])
+}
+
+model InventoryEntry {
+  id         String    @id @default(cuid())
+  storeId    String
+  store      Store     @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  productId  String
+  product    Product   @relation(fields: [productId], references: [id], onDelete: Restrict)
+  barcode    String
+  articul    String?
+  imagePath  String?
+  quantity   Int
+  expiryDate DateTime
+  enteredAt  DateTime  @default(now())
+  removedAt  DateTime?
+  priceReducedAt DateTime?
+  /** Discount % when price is reduced (5–100). Cleared when priceReducedAt is cleared. */
+  priceDiscountPercent Int?
+  /** Last user who enabled or changed the discount (cleared when price is restored). */
+  priceReducedByUserId String?
+  priceReducedByUser   User?     @relation("InventoryPriceReducedBy", fields: [priceReducedByUserId], references: [id], onDelete: SetNull)
+  /** User who first added / imported this expiry row (null on legacy rows). */
+  addedByUserId String?
+  addedByUser   User?     @relation("InventoryAddedBy", fields: [addedByUserId], references: [id], onDelete: SetNull)
+  deletedAt  DateTime?
+
+  @@index([storeId, expiryDate])
+  @@index([storeId, removedAt, deletedAt])
+  @@index([priceReducedByUserId])
+  @@index([addedByUserId])
+}
+
+model FavouriteProduct {
+  id        String   @id @default(cuid())
+  storeId   String
+  store     Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([storeId, productId])
+  @@index([storeId])
+}
+
+model BuyListEntry {
+  id        String    @id @default(cuid())
+  storeId   String
+  store     Store     @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product   @relation(fields: [productId], references: [id], onDelete: Restrict)
+  barcode   String
+  quantity  Int
+  enteredAt DateTime  @default(now())
+  removedAt DateTime?
+  checkedAt DateTime?
+
+  @@index([storeId, removedAt])
+}
+
+model Payment {
+  id               String   @id @default(cuid())
+  clientId         String
+  client           Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  year             Int
+  month            Int
+  activeStoreCount Int
+  /** Snapshot: sum of active location fees at payment time (not a per-store rate). */
+  feePerStore      Float
+  discount         Float    @default(0)
+  amountPaid       Float
+  paidAt           DateTime @default(now())
+  notes            String?
+
+  @@unique([clientId, year, month])
+}
+
+/** Singleton app settings (id is always 1). */
+model AppConfig {
+  id              Int      @id @default(1)
+  /** When false (default), users are not required to have a paid month. */
+  paymentsEnabled Boolean  @default(false)
+  updatedAt       DateTime @updatedAt
+}
+
+model PushSubscription {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  locale    String   @default("en")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model PushNotificationLog {
+  id     String   @id @default(cuid())
+  userId String
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  kind   String
+  sentAt DateTime @default(now())
+
+  @@index([userId, kind, sentAt])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  username   String
+  event      String
+  ipAddress  String   @default("")
+  deviceInfo String   @default("")
+  details    String   @default("")
+  occurredAt DateTime @default(now())
+
+  @@index([occurredAt])
+  @@index([event])
+  @@index([username])
+}
+
+/** One row per document OCR parse attempt that was allowed past the rate limit. */
+model DocumentOcrScan {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  storeId   String
+  username  String
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([userId, createdAt])
+  @@index([storeId, createdAt])
+}
+
+model SupportRequest {
+  id           String   @id @default(cuid())
+  userId       String?
+  user         User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  clientId     String?
+  client       Client?  @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  storeId      String?
+  store        Store?   @relation(fields: [storeId], references: [id], onDelete: SetNull)
+  topic        String
+  contact      String?
+  message      String
+  status       String   @default("new")
+  adminNote    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  resolvedAt   DateTime?
+
+  @@index([status, createdAt])
+  @@index([storeId, createdAt])
+  @@index([userId, createdAt])
+}
+
+/** Admin CRM overlay for public Minimart store locator locations. */
+model MinimartLocatorStore {
+  id            String   @id @default(cuid())
+  /** Agile Store Locator id from mini-mart.bg */
+  externalId    String   @unique
+  title         String
+  street        String
+  city          String
+  postalCode    String?
+  country       String?
+  lat           Float
+  lng           Float
+  phone         String?
+  website       String?
+  openHoursJson String?
+  slug          String?
+  /**
+   * Visit CRM status: NOT_VISITED | ACCEPTED | THINKING | REJECTED
+   * (Accepted = already active / working with store)
+   */
+  status        String   @default("NOT_VISITED")
+  comment       String   @default("")
+  /** Optional link to an expire365 Business client (household not allowed; many pins per client OK). */
+  clientId      String?
+  client        Client?  @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  syncedAt      DateTime
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([city])
+  @@index([status])
+  @@index([clientId])
+}
+
+/** Admin-managed “What’s new” bullets shown once to app users when published. */
+model WhatsNewItem {
+  id        String   @id @default(cuid())
+  /** Stable key from code catalog (`whats-new-catalog.ts`). Null for manual admin rows. */
+  sourceKey String?  @unique
+  titleEn   String
+  titleBg   String
+  href      String?
+  active    Boolean  @default(false)
+  /**
+   * Admin deleted this row. Catalog sync must not recreate it from sourceKey.
+   */
+  suppressed Boolean @default(false)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  seenBy    WhatsNewSeen[]
+
+  @@index([active, sortOrder])
+  @@index([suppressed])
+}
+
+/** Cached Zamboo material catalog — synced daily, never fetched per scan. */
+model ZambooItem {
+  gId            String   @id
+  name           String
+  altName        String   @default("")
+  nameNormalized String
+  code           String   @unique
+  barcode        String?
+  uomName        String?
+  categoryName   String?
+  typeName       String?
+  itemType       Int      @default(1)
+  basePrice      Float    @default(0)
+  active         Boolean  @default(true)
+  syncedAt       DateTime
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([nameNormalized])
+  @@index([barcode])
+  @@index([active])
+}
+
+/** Singleton (id = 1): last successful Zamboo catalog pull. */
+model ZambooSyncState {
+  id         Int       @id @default(1)
+  lastSyncAt DateTime?
+  itemCount  Int       @default(0)
+  lastError  String?
+  updatedAt  DateTime  @updatedAt
+}
+
+/** Per-user acknowledgement of a What’s new item (“Got it” / „Разбрах“). */
+model WhatsNewSeen {
+  userId  String
+  itemId  String
+  seenAt  DateTime @default(now())
+  user    User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  item    WhatsNewItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@id([userId, itemId])
+  @@index([itemId])
+}

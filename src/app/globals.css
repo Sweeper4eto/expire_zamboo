@@ -1,0 +1,318 @@
+@import "tailwindcss";
+
+/* Dark + mint design system (final mockups). Force dark as the product look. */
+:root {
+  color-scheme: dark;
+  --background: #09090b;
+  --foreground: #fafafa;
+  /* No elevated grey fills — panels are border-only. */
+  --card: transparent;
+  --card-border: #3f3f46;
+  --muted: #a1a1aa;
+  --input: transparent;
+  --input-border: #52525b;
+  --primary: #34d399;
+  --primary-fg: #022c22;
+  --accent: #6ee7b7;
+  --invert: #fafafa;
+  --invert-fg: #09090b;
+  --warning-bg: #422006;
+  --warning-fg: #fde68a;
+  --success-bg: rgb(16 185 129 / 0.32);
+  --success-border: #34d399;
+  --success-fg: #a7f3d0;
+  --selected: rgb(16 185 129 / 0.18);
+  --error: #f87171;
+  --danger: #ef4444;
+  --danger-fg: #ffffff;
+  --danger-border: #7f1d1d;
+  --subtle: transparent;
+  --urgency-critical-border: #f87171;
+  --urgency-critical-bg: #450a0a;
+  --urgency-warning-border: #facc15;
+  --urgency-warning-bg: #422006;
+  --urgency-soon-border: #34d399;
+  --urgency-soon-bg: rgb(16 185 129 / 0.14);
+  /* Row min-height only (icons + labels). */
+  --app-bottom-nav-height: 3.25rem;
+  /*
+   * Full fixed nav block: row + pt-1 + pb 0.35rem (safe-area is added separately
+   * where padding uses env(safe-area-inset-bottom)).
+   */
+  --app-bottom-nav-frame: 3.85rem;
+  --nav-border: rgb(255 255 255 / 0.18);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-border: var(--card-border);
+  --color-muted: var(--muted);
+  --color-input: var(--input);
+  --color-input-border: var(--input-border);
+  --color-primary: var(--primary);
+  --color-primary-fg: var(--primary-fg);
+  --color-accent: var(--accent);
+  --color-invert: var(--invert);
+  --color-invert-fg: var(--invert-fg);
+  --color-warning-bg: var(--warning-bg);
+  --color-warning-fg: var(--warning-fg);
+  --color-success-bg: var(--success-bg);
+  --color-success-border: var(--success-border);
+  --color-success-fg: var(--success-fg);
+  --color-selected: var(--selected);
+  --color-error: var(--error);
+  --color-danger: var(--danger);
+  --color-danger-fg: var(--danger-fg);
+  --color-danger-border: var(--danger-border);
+  --color-subtle: var(--subtle);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/*
+ * Do NOT set overflow-x on html/body OR full-page app shells. Per CSS, a
+ * non-visible overflow-x forces overflow-y to compute to auto, and Android
+ * Chrome then paints a persistent scrollbar thumb even when content fits.
+ * Only use overflow-x on small horizontal strips (chip rows, tables).
+ *
+ * Use 100svh (small viewport) for min-height — plain 100%/100vh is taller than
+ * the visible screen while the Android URL bar is showing, which creates a
+ * real document scrollbar on every page (including login).
+ */
+html {
+  max-width: 100%;
+  min-height: 100%;
+  min-height: 100svh;
+}
+
+body {
+  max-width: 100%;
+  min-height: 100%;
+  min-height: 100svh;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+.barcode-scanner-view {
+  position: relative;
+  /* Cropped scan strip; taller on desktop so laptop webcams can resolve barcodes. */
+  height: min(24vh, 180px);
+  min-height: 150px;
+  max-height: min(24vh, 180px);
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .barcode-scanner-view {
+    height: min(34vh, 280px);
+    min-height: 220px;
+    max-height: min(34vh, 280px);
+  }
+}
+
+.barcode-scanner-view > div:first-child {
+  height: 100% !important;
+  min-height: 100% !important;
+}
+
+.barcode-scanner-view video,
+.barcode-scanner-view canvas,
+.barcode-scanner-view img {
+  max-width: 100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-height: none !important;
+  /* Cover fills the horizontal scan strip (no side letterboxing on phones). */
+  object-fit: cover !important;
+  object-position: center center;
+  background: #000;
+  /* Let double-tap / click hit the parent wrapper, not the video element. */
+  pointer-events: none;
+}
+
+/* Hide html5-qrcode's default white border shaders; we draw green corners. */
+.barcode-scanner-view #qr-shaded-region {
+  border: none !important;
+}
+.barcode-scanner-view #qr-shaded-region > div {
+  background: transparent !important;
+}
+
+.scanner-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.scanner-viewfinder {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  bottom: 6px;
+  left: 6px;
+  /* No vignette — the preview itself is already cropped to this region. */
+  box-shadow: none;
+}
+
+.scanner-viewfinder-document {
+  top: 8px;
+  right: 8px;
+  bottom: 8px;
+  left: 8px;
+}
+
+.scanner-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--primary);
+  border-style: solid;
+}
+
+.scanner-corner-tl {
+  top: 0;
+  left: 0;
+  border-width: 1px 0 0 1px;
+  border-radius: 1px 0 0 0;
+}
+
+.scanner-corner-tr {
+  top: 0;
+  right: 0;
+  border-width: 1px 1px 0 0;
+  border-radius: 0 1px 0 0;
+}
+
+.scanner-corner-bl {
+  bottom: 0;
+  left: 0;
+  border-width: 0 0 1px 1px;
+  border-radius: 0 0 0 1px;
+}
+
+.scanner-corner-br {
+  bottom: 0;
+  right: 0;
+  border-width: 0 1px 1px 0;
+  border-radius: 0 0 1px 0;
+}
+
+.scanner-line {
+  position: absolute;
+  top: 14%;
+  left: 6%;
+  right: 6%;
+  height: 72%;
+  pointer-events: none;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  animation: scanner-line-move 2.2s linear infinite alternate;
+}
+
+.scanner-line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(52 211 153 / 0.35),
+    rgb(110 231 183),
+    rgb(255 255 255 / 0.95),
+    rgb(110 231 183),
+    rgb(52 211 153 / 0.35),
+    transparent
+  );
+  box-shadow: 0 0 8px 1px rgb(16 185 129 / 0.7);
+}
+
+@keyframes scanner-line-move {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, calc(100% - 2px), 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scanner-line {
+    animation: none;
+    top: 50%;
+    height: 2px;
+  }
+
+  .scanner-line::before {
+    top: 0;
+  }
+}
+
+input,
+select,
+textarea {
+  color-scheme: dark;
+}
+
+select option {
+  background-color: var(--input);
+  color: var(--foreground);
+}
+
+.urgency-critical {
+  border-color: var(--urgency-critical-border);
+  background: var(--urgency-critical-bg);
+}
+
+.urgency-warning {
+  border-color: var(--urgency-warning-border);
+  background: var(--urgency-warning-bg);
+}
+
+.urgency-soon {
+  border-color: var(--urgency-soon-border);
+  background: var(--urgency-soon-bg);
+}
+
+.urgency-normal {
+  border-color: var(--card-border);
+  background: transparent;
+}
+
+@keyframes document-processing-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.document-processing-spinner {
+  display: block;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 9999px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 40deg,
+    rgb(52 211 153 / 0.15) 70deg,
+    var(--primary) 140deg,
+    rgb(52 211 153 / 0.35) 200deg,
+    transparent 280deg,
+    transparent 360deg
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 0);
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 0);
+  animation: document-processing-spin 0.85s linear infinite;
+}
+
+.document-processing-bar {
+  box-shadow: 0 0 10px rgb(52 211 153 / 0.45);
+}

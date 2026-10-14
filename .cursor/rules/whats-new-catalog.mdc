@@ -1,0 +1,35 @@
+---
+description: Mandatory What's New catalog entry when shipping user-facing changes
+alwaysApply: true
+---
+
+# What's New catalog (mandatory)
+
+When you ship **user-facing** product changes, append a catalog entry **in the same task** before finishing. The admin must not write announcement text by hand.
+
+## Required step
+
+1. Append to `src/lib/whats-new-catalog.ts`:
+   - **New unique `key`** (never reuse), e.g. `2026-09-short-slug`
+   - **`titleEn`** and **`titleBg`** — one short bullet each
+   - Optional **`href`** (app path where users notice the change)
+2. Run `npm run validate` if other code changed in the same task.
+
+## Publish flow (admin, not dev)
+
+- Opening Admin → **What's new** auto-syncs catalog → **Draft** rows in DB.
+- Admin selects items → **Push to users** → **Live** (dev never sets `active` in code).
+
+## Always add for
+
+- UI / layout / visual changes users will see
+- New or changed user flows (`/app/*`)
+- Copy, placeholders, icons, notifications users notice
+
+## Skip for
+
+- Pure refactors, admin-only tooling, internal scripts, SEO-only, tiny bugfixes users won't notice
+
+## Do not forget
+
+If you changed something users see and the task is "done" without a new catalog entry, **add it before replying done**. Missing entries mean users never get told about the change.

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Magazin — initial goods 10</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, sans-serif; background: #09090b; color: #fafafa; padding: 24px 16px 48px; }
+    h1 { margin: 0 0 8px; font-size: 1.5rem; }
+    .sub { color: #a1a1aa; max-width: 720px; line-height: 1.5; margin-bottom: 16px; }
+    .note { font-size: 12px; color: #71717a; margin-bottom: 20px; max-width: 720px; }
+    .pick { display: none; margin: 0 0 24px; padding: 12px 16px; border: 1px solid rgba(52,211,153,.4); background: rgba(52,211,153,.1); border-radius: 12px; color: #6ee7b7; }
+    .pick.show { display: block; }
+    .current { max-width: 960px; margin-bottom: 24px; padding: 16px; border: 1px solid #3f3f46; border-radius: 16px; }
+    .current-label { font-size: 12px; color: #a1a1aa; margin-bottom: 10px; }
+    .current-box { width: 96px; height: 96px; border: 1px solid #3f3f46; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #a1a1aa; text-align: center; padding: 8px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; max-width: 960px; }
+    .card { border: 1px solid #3f3f46; border-radius: 16px; padding: 14px; cursor: pointer; }
+    .card:hover { border-color: #71717a; }
+    .card.selected { border-color: #34d399; background: rgba(52,211,153,.08); box-shadow: 0 0 0 1px rgba(52,211,153,.35); }
+    .thumb { width: 100%; aspect-ratio: 1; border-radius: 12px; border: 1px solid #3f3f46; background: rgba(9,9,11,.55); display: flex; align-items: center; justify-content: center; padding: 18%; color: #a1a1aa; margin-bottom: 12px; position: relative; overflow: hidden; }
+    .card.selected .thumb { color: #6ee7b7; border-color: rgba(52,211,153,.35); }
+    .thumb.mint { border-color: rgba(52,211,153,.25); color: #6ee7b7; }
+    .thumb.mint::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(52,211,153,.14), transparent 70%); }
+    .thumb.soft { background: rgba(39,39,42,.55); }
+    .thumb svg { width: 100%; height: 100%; position: relative; z-index: 1; }
+    .card h2 { margin: 0 0 6px; font-size: 14px; }
+    .card p { margin: 0; font-size: 12px; color: #a1a1aa; line-height: 1.4; }
+  </style>
+</head>
+<body>
+  <h1>Initial 10 — goods illustrations</h1>
+  <p class="sub">This is the first goods set (box, bottle, jar…), created before the 30 extra options. Preview only — no server, nothing applied to the app.</p>
+  <p class="note">Not the camera/polaroid UI set, and not the 30-item set. Click a card to select.</p>
+  <p id="pick" class="pick"></p>
+
+  <section class="current">
+    <div class="current-label">Current app (unchanged)</div>
+    <div class="current-box">No picture</div>
+  </section>
+
+  <div class="grid">
+    <article class="card" data-n="1">
+      <div class="thumb"><svg viewBox="0 0 64 64" fill="none"><path d="M10 22l22-10 22 10v28l-22 10L10 50V22z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M32 12v20M10 22l22 10 22-10" stroke="currentColor" stroke-width="2"/><path d="M22 28v16M42 28v16" stroke="currentColor" stroke-width="1.5" opacity="0.45"/><path d="M26 18h12" stroke="currentColor" stroke-width="2" opacity="0.55"/></svg></div>
+      <h2>1. Carton box</h2><p>Shipping-style box — packaged goods.</p>
+    </article>
+    <article class="card" data-n="2">
+      <div class="thumb mint"><svg viewBox="0 0 64 64" fill="none"><path d="M26 8h12v6c0 2-2 3-2 5l-1 4h-6l-1-4c0-2-2-3-2-5V8z" stroke="currentColor" stroke-width="2"/><rect x="22" y="23" width="20" height="32" rx="4" stroke="currentColor" stroke-width="2"/><path d="M24 34h16M24 40h16" stroke="currentColor" stroke-width="1.5" opacity="0.4"/><rect x="24" y="28" width="16" height="4" rx="1" fill="currentColor" opacity="0.2"/></svg></div>
+      <h2>2. Bottle</h2><p>Drinks, sauces, liquids.</p>
+    </article>
+    <article class="card" data-n="3">
+      <div class="thumb"><svg viewBox="0 0 64 64" fill="none"><rect x="18" y="24" width="28" height="30" rx="6" stroke="currentColor" stroke-width="2"/><path d="M22 24v-4c0-2 2-4 4-4h12c2 0 4 2 4 4v4" stroke="currentColor" stroke-width="2"/><ellipse cx="32" cy="38" rx="10" ry="8" stroke="currentColor" stroke-width="1.5" opacity="0.45"/><path d="M24 18h16" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="38" r="3" fill="currentColor" opacity="0.25"/></svg></div>
+      <h2>3. Jar</h2><p>Preserves, spreads, canned food.</p>
+    </article>
+    <article class="card" data-n="4">
+      <div class="thumb soft"><svg viewBox="0 0 64 64" fill="none"><rect x="22" y="14" width="20" height="38" rx="4" stroke="currentColor" stroke-width="2"/><path d="M22 20h20M22 46h20" stroke="currentColor" stroke-width="2"/><ellipse cx="32" cy="14" rx="10" ry="3" stroke="currentColor" stroke-width="2"/><ellipse cx="32" cy="52" rx="10" ry="3" stroke="currentColor" stroke-width="2"/><path d="M28 28h8v10h-8z" stroke="currentColor" stroke-width="1.5" opacity="0.45"/></svg></div>
+      <h2>4. Tin can</h2><p>Canned goods.</p>
+    </article>
+    <article class="card" data-n="5">
+      <div class="thumb"><svg viewBox="0 0 64 64" fill="none"><path d="M16 24l6-10h20l6 10v28H16V24z" stroke="currentColor" stroke-width="2"/><path d="M24 14c0 4 16 4 16 0" stroke="currentColor" stroke-width="2"/><path d="M22 34h20M22 42h14" stroke="currentColor" stroke-width="1.5" opacity="0.4"/></svg></div>
+      <h2>5. Paper bag</h2><p>Retail / grocery bag.</p>
+    </article>
+    <article class="card" data-n="6">
+      <div class="thumb mint"><svg viewBox="0 0 64 64" fill="none"><path d="M8 46h48" stroke="currentColor" stroke-width="2"/><rect x="12" y="22" width="12" height="24" rx="2" stroke="currentColor" stroke-width="1.75"/><rect x="26" y="18" width="12" height="28" rx="2" stroke="currentColor" stroke-width="1.75"/><path d="M44 26h8v20h-8z" stroke="currentColor" stroke-width="1.75"/><path d="M46 22h4v4h-4z" stroke="currentColor" stroke-width="1.5"/><path d="M16 30h4M30 26h4" stroke="currentColor" stroke-width="1.25" opacity="0.4"/></svg></div>
+      <h2>6. Shelf trio</h2><p>Three products on a shelf.</p>
+    </article>
+    <article class="card" data-n="7">
+      <div class="thumb"><svg viewBox="0 0 64 64" fill="none"><rect x="16" y="12" width="32" height="34" rx="4" stroke="currentColor" stroke-width="2"/><path d="M22 20h20M22 26h14M22 32h18" stroke="currentColor" stroke-width="1.5" opacity="0.4"/><rect x="18" y="48" width="28" height="8" rx="2" fill="currentColor" opacity="0.12" stroke="currentColor" stroke-width="1.5"/><rect x="20" y="50" width="1.2" height="4" fill="currentColor" opacity="0.55"/><rect x="22.4" y="50" width="1.2" height="4" fill="currentColor" opacity="0.55"/><rect x="24.8" y="50" width="1.2" height="4" fill="currentColor" opacity="0.55"/><rect x="27.2" y="50" width="1.2" height="4" fill="currentColor" opacity="0.55"/><rect x="29.6" y="50" width="1.2" height="4" fill="currentColor" opacity="0.55"/><rect x="32" y="50" width="1.2" height="4" fill="currentColor" opacity="0.55"/><rect x="34.4" y="50" width="1.2" height="4" fill="currentColor" opacity="0.55"/><rect x="36.8" y="50" width="1.2" height="4" fill="currentColor" opacity="0.55"/><rect x="39.2" y="50" width="1.2" height="4" fill="currentColor" opacity="0.55"/><rect x="41.6" y="50" width="1.2" height="4" fill="currentColor" opacity="0.55"/></svg></div>
+      <h2>7. Barcode product</h2><p>Pack + barcode strip.</p>
+    </article>
+    <article class="card" data-n="8">
+      <div class="thumb soft"><svg viewBox="0 0 64 64" fill="none"><path d="M10 28l22-8 22 8v22l-22 8-22-8V28z" stroke="currentColor" stroke-width="2"/><path d="M32 20v30M10 28l22 8 22-8" stroke="currentColor" stroke-width="2"/><rect x="22" y="32" width="8" height="10" rx="1" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><rect x="34" y="34" width="8" height="8" rx="4" stroke="currentColor" stroke-width="1.5" opacity="0.5"/></svg></div>
+      <h2>8. Crate</h2><p>Warehouse / delivery crate.</p>
+    </article>
+    <article class="card" data-n="9">
+      <div class="thumb"><svg viewBox="0 0 64 64" fill="none"><rect x="20" y="18" width="24" height="34" rx="8" stroke="currentColor" stroke-width="2"/><path d="M24 18h16" stroke="currentColor" stroke-width="2"/><path d="M26 30h12M26 36h12M26 42h8" stroke="currentColor" stroke-width="1.5" opacity="0.4"/><circle cx="32" cy="24" r="2" fill="currentColor" opacity="0.3"/></svg></div>
+      <h2>9. Tube</h2><p>Tube pack — paste, cosmetics.</p>
+    </article>
+    <article class="card" data-n="10">
+      <div class="thumb mint"><svg viewBox="0 0 64 64" fill="none"><rect x="10" y="28" width="18" height="20" rx="3" stroke="currentColor" stroke-width="1.75"/><path d="M14 28v-6c0-2 3-4 5-4h4c2 0 5 2 5 4v6" stroke="currentColor" stroke-width="1.75"/><rect x="34" y="22" width="14" height="26" rx="3" stroke="currentColor" stroke-width="1.75"/><path d="M36 22v-5h10v5" stroke="currentColor" stroke-width="1.75"/><path d="M8 50h48" stroke="currentColor" stroke-width="2" opacity="0.35"/><ellipse cx="19" cy="36" rx="4" ry="3" fill="currentColor" opacity="0.18"/><path d="M38 30h6M38 36h6" stroke="currentColor" stroke-width="1.25" opacity="0.35"/></svg></div>
+      <h2>10. Grocery still life</h2><p>Jar + bottle together.</p>
+    </article>
+  </div>
+  <script>
+    const pick = document.getElementById("pick");
+    document.querySelectorAll(".card").forEach((card) => {
+      card.addEventListener("click", () => {
+        document.querySelectorAll(".card").forEach((c) => c.classList.remove("selected"));
+        card.classList.add("selected");
+        pick.textContent = "Selected: " + card.querySelector("h2").textContent + " — reply: implement " + card.dataset.n;
+        pick.classList.add("show");
+      });
+    });
+  </script>
+</body>
+</html>

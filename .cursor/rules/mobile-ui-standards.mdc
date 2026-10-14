@@ -1,0 +1,36 @@
+---
+description: Mobile app UI consistency — buttons, insets, typography
+alwaysApply: true
+---
+
+# Mobile UI standards
+
+Reuse tokens from `src/lib/app-ui.ts`. Do **not** invent new button heights, font sizes, or page padding per screen.
+
+## Buttons (app / retail flows)
+
+- **Always outline** — `border-primary` + `text-primary`, or `border-card-border` + `text-foreground`. Never `bg-primary` / solid green fill on buttons.
+- **Standard size:** `px-3 py-2.5 text-sm font-semibold rounded-xl` — use `appButtonPrimary`, `appButtonNeutral`, `appButtonDanger`, or `*Full` / `appButtonRow*` variants.
+- **Auth / forms:** prefer `PrimaryButton` / `SecondaryButton` from `@/components/auth-forms` (they map to the same tokens).
+- **Footer pairs:** `appFooterButtonGrid` (`grid grid-cols-2 gap-2`), primary action left or first per existing screen.
+
+## Page width & list layout
+
+- **Shell:** `appPageShell` (`max-w-lg mx-auto`).
+- **Card lists** (expiry, document review): `appListInset` (`px-1.5`) for cards **and** aligned chrome (title, search, sticky footers on that screen).
+- **Search field (lists):** `appSearchInput` (`h-9 rounded-lg`).
+
+## Typography (mobile app)
+
+- Page title: `text-2xl font-semibold`
+- Section / card label: `text-sm font-semibold`
+- Helper / hint: `text-sm text-muted` or `text-xs text-muted`
+- Do not mix `text-base` on action buttons; buttons stay `text-sm font-semibold`.
+
+## Dialogs
+
+- Remove confirms: `RemoveConfirmDialog` + same button tokens (`py-2.5`, not `py-3`).
+
+## When touching UI
+
+If a screen differs from these tokens, **align it in the same change** rather than copying one-off classes.

@@ -1,0 +1,224 @@
+{
+  "en": {
+    "title": "Privacy Policy",
+    "lastUpdated": "2 August 2026",
+    "intro": [
+      "This Privacy Policy explains how expire365 (the \"Service\") collects, uses, and shares personal data when you use our website and app.",
+      "If you have questions, contact us through the Contact form. Where EU/EEA or UK GDPR applies, this Policy also describes your rights."
+    ],
+    "sections": [
+      {
+        "heading": "1. Who we are",
+        "paragraphs": [
+          "The operator of expire365 is the data controller for personal data processed through the Service, unless we process data only on behalf of an organization customer as described below.",
+          "For organization accounts, the organization typically decides what inventory and team data are stored; in that case the organization is the controller and we act as a processor for that Customer Data."
+        ]
+      },
+      {
+        "heading": "2. Data we collect",
+        "paragraphs": [
+          "Depending on how you use the Service, we may process:"
+        ],
+        "bullets": [
+          "Account data: username, password hash, role, organization membership, and language preference",
+          "Business / location data: store or home location names, addresses, and related settings you enter",
+          "Inventory and product data: barcodes, names, quantities, expiry dates, SKUs, photos, and import/OCR document content",
+          "Support messages: topic, message text, and optional email or phone (including guest contact without an account)",
+          "Technical data: IP address, device/browser type, approximate timestamps, session cookies, and push-notification subscription endpoints",
+          "Usage and security logs: sign-in attempts and important admin or inventory actions for security and abuse prevention"
+        ]
+      },
+      {
+        "heading": "3. How we use data",
+        "paragraphs": [
+          "We use personal data to:"
+        ],
+        "bullets": [
+          "Provide, secure, and maintain the Service",
+          "Authenticate users and manage team access",
+          "Send expiry digests and other notifications you enable",
+          "Respond to support requests",
+          "Improve reliability, detect fraud or abuse, and meet legal obligations"
+        ]
+      },
+      {
+        "heading": "4. Legal bases (GDPR)",
+        "paragraphs": [
+          "Where GDPR applies, we rely on: performance of a contract (providing the Service you requested); legitimate interests (security, product improvement, basic analytics that do not override your rights); consent (for optional push notifications and similar optional features); and legal obligation when the law requires retention or disclosure."
+        ]
+      },
+      {
+        "heading": "5. Sharing",
+        "paragraphs": [
+          "We do not sell your personal data. We may share data with:"
+        ],
+        "bullets": [
+          "Infrastructure and hosting providers that process data on our instructions",
+          "Members of your organization according to roles you configure",
+          "Authorities when required by law or to protect rights and safety",
+          "Professional advisors under confidentiality where needed"
+        ]
+      },
+      {
+        "heading": "6. Cookies and local storage",
+        "paragraphs": [
+          "We use essential cookies/local storage for session authentication and to remember your language preference. These are required for the Service to work as expected. We do not use third-party advertising cookies."
+        ]
+      },
+      {
+        "heading": "7. Retention",
+        "paragraphs": [
+          "We keep account and Customer Data while your account is active and for a reasonable period afterward for backups, dispute resolution, and legal compliance. Support tickets are kept as long as needed to handle your request and for security records. You may request deletion subject to legal retention duties."
+        ]
+      },
+      {
+        "heading": "8. Security",
+        "paragraphs": [
+          "We use technical and organizational measures appropriate to the risk, including hashed passwords and access controls. No method of transmission or storage is completely secure; please use a strong unique password and protect your devices."
+        ]
+      },
+      {
+        "heading": "9. International transfers",
+        "paragraphs": [
+          "If we process or store data outside your country, we will use appropriate safeguards required by applicable law (such as standard contractual clauses) where needed."
+        ]
+      },
+      {
+        "heading": "10. Your rights",
+        "paragraphs": [
+          "Subject to applicable law, you may request access, correction, deletion, restriction, portability, or objection to certain processing. Where we rely on consent, you may withdraw it at any time (for example by disabling notifications). You may also lodge a complaint with your local data protection authority (in Bulgaria: the Commission for Personal Data Protection).",
+          "To exercise rights, use the Contact form and describe your request. We may need to verify your identity."
+        ]
+      },
+      {
+        "heading": "11. Children",
+        "paragraphs": [
+          "The Service is not directed to children under 16. Do not create an account for a child under that age. If you believe we have collected such data, contact us so we can delete it."
+        ]
+      },
+      {
+        "heading": "12. Changes",
+        "paragraphs": [
+          "We may update this Privacy Policy. The \"Last updated\" date will change when we do. Material changes may also be signaled in the app or on the website."
+        ]
+      },
+      {
+        "heading": "13. Contact",
+        "paragraphs": [
+          "Privacy requests: use the Contact form on the website or in the app. We will reply using the contact details you provide."
+        ]
+      }
+    ]
+  },
+  "bg": {
+    "title": "Политика за поверителност",
+    "lastUpdated": "2 август 2026",
+    "intro": [
+      "Тази Политика за поверителност обяснява как expire365 (Услугата) събира, използва и споделя лични данни при ползване на уебсайта и приложението.",
+      "При въпроси използвайте формата за контакт. Когато се прилага GDPR (ЕС/ЕИП или Обединеното кралство), Политиката описва и вашите права."
+    ],
+    "sections": [
+      {
+        "heading": "1. Кои сме ние",
+        "paragraphs": [
+          "Операторът на expire365 е администратор на личните данни, обработвани чрез Услугата, освен когато обработваме данни само от името на клиент-организация, както е описано по-долу.",
+          "При организационни акаунти организацията обикновено решава какви данни за наличности и екип се съхраняват; в този случай организацията е администратор, а ние действаме като обработващ за тези Клиентски данни."
+        ]
+      },
+      {
+        "heading": "2. Какви данни събираме",
+        "paragraphs": [
+          "В зависимост от ползването можем да обработваме:"
+        ],
+        "bullets": [
+          "Данни за акаунт: потребителско име, хеш на парола, роля, членство в организация и езикова предпочитание",
+          "Бизнес / обектни данни: имена на обекти или домакинства, адреси и свързани настройки, които въвеждате",
+          "Данни за наличности и продукти: баркодове, имена, количества, срокове, SKU, снимки и съдържание от импорт/OCR",
+          "Съобщения към поддръжка: тема, текст и по желание имейл или телефон (включително без акаунт)",
+          "Технически данни: IP адрес, тип устройство/браузър, приблизителни времеви маркери, сесийни бисквитки и крайни точки за push известия",
+          "Дневници за ползване и сигурност: опити за вход и важни админ/складови действия срещу злоупотреби"
+        ]
+      },
+      {
+        "heading": "3. Как използваме данните",
+        "paragraphs": [
+          "Използваме лични данни, за да:"
+        ],
+        "bullets": [
+          "Предоставяме, защитаваме и поддържаме Услугата",
+          "Удостоверяваме потребители и управляваме достъпа на екипа",
+          "Изпращаме известия за срокове и други известия, които сте включили",
+          "Отговаряме на заявки за поддръжка",
+          "Подобряваме надеждността, откриваме измами/злоупотреби и спазваме закона"
+        ]
+      },
+      {
+        "heading": "4. Правни основания (GDPR)",
+        "paragraphs": [
+          "Когато се прилага GDPR, се опираме на: изпълнение на договор (предоставяне на поисканата Услуга); легитимен интерес (сигурност, подобрения, базова аналитика, която не надделява над правата ви); съгласие (за по избор push известия и подобни функции); и правно задължение, когато законът изисква съхранение или разкриване."
+        ]
+      },
+      {
+        "heading": "5. Споделяне",
+        "paragraphs": [
+          "Не продаваме личните ви данни. Можем да споделяме данни с:"
+        ],
+        "bullets": [
+          "Доставчици на хостинг и инфраструктура, които обработват данни по наши указания",
+          "Членове на вашата организация според настроените роли",
+          "Компетентни органи, когато законът изисква или за защита на права и безопасност",
+          "Професионални консултанти при поверителност, когато е нужно"
+        ]
+      },
+      {
+        "heading": "6. Бисквитки и локално хранилище",
+        "paragraphs": [
+          "Използваме необходими бисквитки/локално хранилище за сесийно удостоверяване и запомняне на езика. Те са нужни за нормална работа на Услугата. Не използваме рекламни бисквитки от трети страни."
+        ]
+      },
+      {
+        "heading": "7. Срок на съхранение",
+        "paragraphs": [
+          "Пазим акаунт и Клиентски данни докато акаунтът е активен и за разумен период след това заради резервни копия, спорове и законови изисквания. Заявките към поддръжка се пазят докато са нужни за обработване и за сигурност. Можете да поискате изтриване, при спазване на задължения за съхранение."
+        ]
+      },
+      {
+        "heading": "8. Сигурност",
+        "paragraphs": [
+          "Прилагаме технически и организационни мерки, съобразени с риска, включително хеширани пароли и контрол на достъпа. Никой метод на пренос или съхранение не е напълно сигурен; използвайте силна уникална парола и пазете устройствата си."
+        ]
+      },
+      {
+        "heading": "9. Международни прехвърляния",
+        "paragraphs": [
+          "Ако обработваме или съхраняваме данни извън вашата държава, ще използваме подходящи гаранции, изисквани от приложимото право (напр. стандартни договорни клаузи), когато е нужно."
+        ]
+      },
+      {
+        "heading": "10. Вашите права",
+        "paragraphs": [
+          "Съгласно приложимото право можете да поискате достъп, коригиране, изтриване, ограничаване, преносимост или възражение срещу определена обработка. Когато се опираме на съгласие, можете да го оттеглите по всяко време (напр. като изключите известия). Можете и да подадете жалба до местния орган за защита на данните (в България: Комисия за защита на личните данни).",
+          "За упражняване на права използвайте формата за контакт и опишете искането. Може да се наложи да потвърдим самоличността ви."
+        ]
+      },
+      {
+        "heading": "11. Деца",
+        "paragraphs": [
+          "Услугата не е насочена към деца под 16 години. Не създавайте акаунт за дете под тази възраст. Ако смятате, че сме събрали такива данни, свържете се с нас за изтриване."
+        ]
+      },
+      {
+        "heading": "12. Промени",
+        "paragraphs": [
+          "Можем да актуализираме тази Политика. Датата Последна актуализация ще се промени. Съществени промени могат да бъдат оповестени и в приложението или на сайта."
+        ]
+      },
+      {
+        "heading": "13. Контакт",
+        "paragraphs": [
+          "Заявки за поверителност: използвайте формата за контакт на сайта или в приложението. Ще отговорим на предоставените данни за връзка."
+        ]
+      }
+    ]
+  }
+}

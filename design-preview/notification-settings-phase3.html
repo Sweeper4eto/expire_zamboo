@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>expire365 — Phase 3 notification settings (mockup)</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: #09090b;
+      color: #fafafa;
+      padding: 20px 16px 48px;
+      line-height: 1.45;
+    }
+    h1 { margin: 0 0 6px; font-size: 1.35rem; }
+    .lead { color: #a1a1aa; max-width: 720px; margin-bottom: 24px; font-size: 14px; }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: #6ee7b7;
+      border: 1px solid rgba(52,211,153,.35);
+      background: rgba(52,211,153,.08);
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      align-items: flex-start;
+      max-width: 1100px;
+    }
+    .phone {
+      width: 320px;
+      flex-shrink: 0;
+      border: 1px solid #3f3f46;
+      border-radius: 28px;
+      overflow: hidden;
+      background: #09090b;
+    }
+    .phone-label {
+      font-size: 12px;
+      color: #71717a;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .statusbar {
+      height: 28px;
+      background: #09090b;
+      border-bottom: 1px solid #27272a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: #71717a;
+    }
+    .screen { padding: 12px 14px 20px; min-height: 580px; }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .back {
+      width: 32px; height: 32px;
+      border: 1px solid #3f3f46;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: #a1a1aa; font-size: 16px;
+    }
+    .nav h2 { margin: 0; font-size: 1.05rem; font-weight: 600; }
+    .section {
+      border: 1px solid #3f3f46;
+      border-radius: 16px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .section-head h3 { margin: 0; font-size: 13px; font-weight: 600; }
+    .section-head .tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(52,211,153,.35);
+      color: #6ee7b7;
+    }
+    .hint { font-size: 11px; color: #71717a; margin: 0 0 10px; }
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 0;
+      border-top: 1px solid #27272a;
+    }
+    .row:first-of-type { border-top: none; padding-top: 0; }
+    .row-label { font-size: 13px; }
+    .row-sub { font-size: 11px; color: #71717a; margin-top: 2px; }
+    .toggle {
+      width: 44px; height: 26px;
+      border-radius: 999px;
+      background: #34d399;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .toggle.off { background: transparent; border: 1px solid #52525b; }
+    .toggle span {
+      position: absolute;
+      top: 3px; left: 21px;
+      width: 18px; height: 18px;
+      border-radius: 999px;
+      background: #fff;
+    }
+    .toggle.off span { left: 3px; }
+    .chip-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .chip {
+      font-size: 12px;
+      font-weight: 500;
+      text-align: center;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid #52525b;
+      color: #a1a1aa;
+    }
+    .chip.on {
+      border-color: rgba(52,211,153,.45);
+      color: #6ee7b7;
+      background: rgba(52,211,153,.08);
+    }
+    .chip.warn.on {
+      border-color: rgba(250,204,21,.45);
+      color: #fde68a;
+      background: rgba(250,204,21,.08);
+    }
+    .chip.urgent.on {
+      border-color: rgba(248,113,113,.45);
+      color: #fca5a5;
+      background: rgba(248,113,113,.08);
+    }
+    .time-input {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .time-box {
+      border: 1px solid #52525b;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: 600;
+      min-width: 72px;
+      text-align: center;
+    }
+    .tier-card {
+      border: 1px solid #3f3f46;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+    }
+    .tier-card.warn { border-color: rgba(250,204,21,.25); }
+    .tier-card.urgent { border-color: rgba(248,113,113,.25); }
+    .tier-top { display: flex; justify-content: space-between; align-items: center; }
+    .tier-name { font-size: 12px; font-weight: 600; }
+    .tier-name.warn { color: #fde68a; }
+    .tier-name.urgent { color: #fca5a5; }
+    .save {
+      width: 100%;
+      margin-top: 4px;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(52,211,153,.45);
+      background: transparent;
+      color: #34d399;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .home-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid #3f3f46;
+      border-radius: 16px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+    .bell {
+      width: 44px; height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(52,211,153,.45);
+      display: flex; align-items: center; justify-content: center;
+      color: #34d399;
+      flex-shrink: 0;
+    }
+    .home-card p { margin: 0; font-size: 11px; color: #71717a; }
+    .home-card strong { display: block; font-size: 14px; margin-bottom: 2px; }
+    .link { color: #34d399; font-size: 12px; font-weight: 600; text-decoration: none; }
+    .notes {
+      flex: 1;
+      min-width: 280px;
+      max-width: 420px;
+    }
+    .notes h3 { margin: 0 0 10px; font-size: 14px; }
+    .notes ul { margin: 0; padding-left: 18px; color: #a1a1aa; font-size: 13px; }
+    .notes li { margin-bottom: 8px; }
+    .push-preview {
+      border: 1px solid #3f3f46;
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: rgba(24,24,27,.6);
+    }
+    .push-app { font-size: 10px; color: #71717a; margin-bottom: 4px; }
+    .push-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+    .push-body { font-size: 12px; color: #a1a1aa; }
+    .push-preview.warn { border-left: 3px solid #facc15; }
+    .push-preview.urgent { border-left: 3px solid #f87171; }
+    .timeline {
+      margin-top: 16px;
+      border: 1px solid #3f3f46;
+      border-radius: 14px;
+      padding: 14px;
+    }
+    .timeline h4 { margin: 0 0 12px; font-size: 12px; color: #a1a1aa; font-weight: 600; }
+    .tl-row {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 10px;
+      font-size: 11px;
+      padding: 6px 0;
+      border-top: 1px solid #27272a;
+    }
+    .tl-row:first-child { border-top: none; }
+    .tl-day { color: #71717a; }
+    .tl-event.warn { color: #fde68a; }
+    .tl-event.urgent { color: #fca5a5; }
+    .tl-event.mute { color: #52525b; text-decoration: line-through; }
+    .phase-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+      max-width: 720px;
+    }
+    .phase {
+      font-size: 11px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid #3f3f46;
+      color: #71717a;
+    }
+    .phase.done { color: #a1a1aa; }
+    .phase.current {
+      border-color: rgba(52,211,153,.45);
+      color: #6ee7b7;
+      background: rgba(52,211,153,.06);
+    }
+  </style>
+</head>
+<body>
+  <span class="badge">Preview only — not implemented</span>
+  <h1>Phase 3 — Expiry notification settings</h1>
+  <p class="lead">
+    Mockup за <strong>/app/settings/notifications</strong> след фаза 3: многостепенни известия (14 дни предупреждение + 3 дни спешно),
+    тихи часове, график и филтър по магазини (от фази 1–2). Отворете файла в браузър — без сървър.
+  </p>
+
+  <div class="phase-legend">
+    <span class="phase done">Phase 1 — trigger days + daily time</span>
+    <span class="phase done">Phase 2 — custom interval + stores</span>
+    <span class="phase current">Phase 3 — multi-tier + quiet hours</span>
+  </div>
+
+  <div class="layout">
+    <!-- Phone: Home entry point -->
+    <div>
+      <div class="phone-label">Home — entry (Phase 1+)</div>
+      <div class="phone">
+        <div class="statusbar">expire365 · mockup</div>
+        <div class="screen">
+          <div style="font-size:11px;color:#71717a;margin-bottom:12px">Начало</div>
+          <div class="home-card">
+            <div class="bell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 9a5 5 0 0 1 10 0c0 4 1.5 5.5 1.5 5.5H5.5S7 13 7 9Z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg></div>
+            <div style="flex:1;min-width:0">
+              <strong>Известия за годност</strong>
+              <p>3 дни спешно · 14 дни ранно · 09:00</p>
+            </div>
+            <div class="toggle"><span></span></div>
+          </div>
+          <p style="text-align:center;margin:8px 0 0">
+            <a class="link" href="#">Персонализирай →</a>
+          </p>
+          <p class="hint" style="text-align:center;margin-top:16px">
+            Води към екрана вдясно ↓
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone: Full settings -->
+    <div>
+      <div class="phone-label">Settings screen — after Phase 3</div>
+      <div class="phone">
+        <div class="statusbar">expire365 · mockup</div>
+        <div class="screen">
+          <div class="nav">
+            <div class="back">←</div>
+            <h2>Известия за годност</h2>
+          </div>
+
+          <div class="section">
+            <div class="section-head">
+              <h3>Общо</h3>
+            </div>
+            <div class="row">
+              <div>
+                <div class="row-label">Push известия</div>
+                <div class="row-sub">Включени на това устройство</div>
+              </div>
+              <div class="toggle"><span></span></div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-head">
+              <h3>Нива на напомняне</h3>
+              <span class="tag">Phase 3</span>
+            </div>
+            <p class="hint">Различни съобщения на различни етапи — продукт с 20 дни до срок не пуска известие, докато не влезе в прозорец.</p>
+
+            <div class="tier-card warn">
+              <div class="tier-top">
+                <span class="tier-name warn">Ранно предупреждение</span>
+                <div class="toggle"><span></span></div>
+              </div>
+              <div class="chip-row">
+                <span class="chip">3 д</span>
+                <span class="chip">7 д</span>
+                <span class="chip warn on">14 д</span>
+                <span class="chip">По избор</span>
+              </div>
+              <div class="row-sub" style="margin-top:8px">„3 продукта изтичат в следващите 14 дни“</div>
+            </div>
+
+            <div class="tier-card urgent">
+              <div class="tier-top">
+                <span class="tier-name urgent">Спешно</span>
+                <div class="toggle"><span></span></div>
+              </div>
+              <div class="chip-row">
+                <span class="chip urgent on">3 д</span>
+                <span class="chip">7 д</span>
+                <span class="chip">14 д</span>
+                <span class="chip">По избор</span>
+              </div>
+              <div class="row-sub" style="margin-top:8px">„Мляко 1L изтича след 3 дни“</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-head">
+              <h3>График</h3>
+            </div>
+            <div class="row">
+              <div>
+                <div class="row-label">Честота</div>
+                <div class="row-sub">Веднъж дневно</div>
+              </div>
+            </div>
+            <div class="time-input">
+              <span class="row-sub">Час:</span>
+              <span class="time-box">09:00</span>
+              <span class="row-sub">EET</span>
+            </div>
+            <div class="row">
+              <div>
+                <div class="row-label">Макс. интервал</div>
+                <div class="row-sub">Phase 2 — custom</div>
+              </div>
+              <span class="chip on">24 ч</span>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-head">
+              <h3>Тихи часове</h3>
+              <span class="tag">Phase 3</span>
+            </div>
+            <div class="row">
+              <div>
+                <div class="row-label">Без известия нощем</div>
+                <div class="row-sub">22:00 – 07:00</div>
+              </div>
+              <div class="toggle"><span></span></div>
+            </div>
+            <div class="time-input">
+              <span class="time-box">22:00</span>
+              <span class="row-sub">до</span>
+              <span class="time-box">07:00</span>
+            </div>
+            <p class="hint" style="margin-top:10px;margin-bottom:0">Известия в тихия прозорец се отлагат до 07:00.</p>
+          </div>
+
+          <div class="section">
+            <div class="section-head">
+              <h3>Магазини</h3>
+            </div>
+            <div class="chip-row">
+              <span class="chip on">Всички</span>
+              <span class="chip">Избрани…</span>
+            </div>
+          </div>
+
+          <button type="button" class="save">Запази</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side panel: push examples + timeline -->
+    <div class="notes">
+      <h3>Примерни push съобщения</h3>
+
+      <div class="push-preview warn">
+        <div class="push-app">expire365 · 09:00</div>
+        <div class="push-title">3 продукта изтичат в следващите 14 дни</div>
+        <div class="push-body">Йогурт 400g · Магазин Център</div>
+      </div>
+
+      <div class="push-preview urgent">
+        <div class="push-app">expire365 · 09:00</div>
+        <div class="push-title">Мляко 1L изтича скоро</div>
+        <div class="push-body">2 бр. · 3 дни остават · Магазин Център</div>
+      </div>
+
+      <div class="timeline">
+        <h4>Пример: продукт изтича след 20 дни (вашите настройки: 14д + 3д)</h4>
+        <div class="tl-row">
+          <div class="tl-day">Ден 0</div>
+          <div class="tl-event">20 дни остават — без известие</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-day">Ден 6</div>
+          <div class="tl-event warn">14 дни — ранно предупреждение (09:00)</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-day">Ден 17</div>
+          <div class="tl-event urgent">3 дни — спешно известие (09:00)</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-day">Ден 17</div>
+          <div class="tl-event mute">23:30 — тихи часове, без push</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-day">Ден 18</div>
+          <div class="tl-event">07:00 — отложено спешно известие</div>
+        </div>
+      </div>
+
+      <ul style="margin-top:16px">
+        <li><strong>Phase 3 ново:</strong> два независими прага + различен текст/тон</li>
+        <li><strong>Phase 3 ново:</strong> тихи часове с отлагане, не загуба</li>
+        <li>Фази 1–2 остават на същия екран (график, магазини)</li>
+        <li>Админът само Push в What's new — без имплементация още</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

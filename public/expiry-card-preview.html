@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Expiry card preview</title>
+    <style>
+      :root {
+        --background: #fafafa;
+        --foreground: #18181b;
+        --card: #ffffff;
+        --card-border: #e4e4e7;
+        --muted: #71717a;
+        --error: #dc2626;
+        --danger-border: #fca5a5;
+        --subtle: #f4f4f5;
+        --urgency-critical-border: #ef4444;
+        --urgency-critical-bg: #fef2f2;
+        --urgency-warning-border: #eab308;
+        --urgency-warning-bg: #fefce8;
+        --urgency-soon-border: #3b82f6;
+        --urgency-soon-bg: #eff6ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+        background: #ececec;
+        color: var(--foreground);
+        padding: 24px 16px 40px;
+      }
+
+      h1 {
+        margin: 0 0 8px;
+        font-size: 22px;
+      }
+
+      .intro {
+        margin: 0 0 24px;
+        color: var(--muted);
+        font-size: 14px;
+        max-width: 860px;
+      }
+
+      .compare {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: center;
+      }
+
+      .phone {
+        width: 390px;
+        flex-shrink: 0;
+      }
+
+      .phone > h2 {
+        margin: 0 0 8px;
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      .frame {
+        border: 1px solid #d4d4d8;
+        border-radius: 20px;
+        overflow: hidden;
+        background: var(--background);
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--card-border);
+        background: var(--card);
+      }
+
+      .header strong {
+        font-size: 18px;
+      }
+
+      .pill {
+        font-size: 12px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid #2563eb;
+        color: #2563eb;
+        background: #eff6ff;
+      }
+
+      .list {
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      /* Current */
+      .card-current {
+        position: relative;
+        border-radius: 12px;
+        border: 1px solid;
+        padding: 10px;
+      }
+
+      .card-current.critical {
+        border-color: var(--urgency-critical-border);
+        background: var(--urgency-critical-bg);
+      }
+
+      .card-current.warning {
+        border-color: var(--urgency-warning-border);
+        background: var(--urgency-warning-bg);
+      }
+
+      .card-current .remove-sm {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--error);
+        background: var(--card);
+        border: 1px solid var(--danger-border);
+        border-radius: 8px;
+        padding: 4px 8px;
+      }
+
+      .card-current .row {
+        display: flex;
+        gap: 10px;
+        padding-right: 72px;
+      }
+
+      .thumb {
+        width: 56px;
+        height: 56px;
+        border-radius: 10px;
+        background: var(--subtle);
+        border: 1px solid var(--card-border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--muted);
+        flex-shrink: 0;
+      }
+
+      .days-big {
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      .days-label {
+        margin-top: 2px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .valid-label {
+        margin-top: 2px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .valid-date {
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .name-footer {
+        margin: 4px 0 0;
+        font-size: 12px;
+        color: var(--muted);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* Proposed */
+      .card-new {
+        display: flex;
+        border-radius: 12px;
+        border: 1px solid var(--card-border);
+        background: var(--card);
+        overflow: hidden;
+      }
+
+      .stripe {
+        width: 4px;
+        flex-shrink: 0;
+      }
+
+      .stripe.critical {
+        background: var(--urgency-critical-border);
+      }
+
+      .stripe.warning {
+        background: var(--urgency-warning-border);
+      }
+
+      .stripe.soon {
+        background: var(--urgency-soon-border);
+      }
+
+      .card-new-body {
+        flex: 1;
+        padding: 12px;
+      }
+
+      .card-new-top {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+
+      .card-new-text {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .name-top {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.35;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .valid-line {
+        margin: 4px 0 0;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .badge {
+        min-width: 52px;
+        border-radius: 10px;
+        padding: 6px 8px;
+        text-align: center;
+        flex-shrink: 0;
+        border: 1px solid;
+      }
+
+      .badge.critical {
+        background: #fee2e2;
+        border-color: #fecaca;
+        color: #b91c1c;
+      }
+
+      .badge.warning {
+        background: #fef3c7;
+        border-color: #fde68a;
+        color: #92400e;
+      }
+
+      .badge.soon {
+        background: var(--urgency-soon-bg);
+        border-color: #bfdbfe;
+        color: #1d4ed8;
+      }
+
+      .badge-num {
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      .badge-label {
+        margin-top: 2px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      .divider {
+        height: 1px;
+        background: var(--card-border);
+        margin: 10px 0;
+      }
+
+      .remove-full {
+        width: 100%;
+        min-height: 40px;
+        border-radius: 10px;
+        border: 1px solid var(--danger-border);
+        background: var(--card);
+        color: var(--error);
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .legend {
+        max-width: 860px;
+        margin: 28px auto 0;
+        padding: 16px;
+        background: var(--card);
+        border: 1px solid var(--card-border);
+        border-radius: 12px;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .legend ul {
+        margin: 8px 0 0;
+        padding-left: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Expiry card — visual preview</h1>
+    <p class="intro">iPhone-width mockup. Open this file in a browser to compare current vs proposed layout.</p>
+
+    <div class="compare">
+      <div class="phone">
+        <h2>Current</h2>
+        <div class="frame">
+          <div class="header">
+            <strong>Expiry</strong>
+            <span class="pill">2 weeks</span>
+          </div>
+          <div class="list">
+            <article class="card-current critical">
+              <button class="remove-sm" type="button">Remove</button>
+              <div class="row">
+                <div class="thumb">V</div>
+                <div>
+                  <div class="days-big">3</div>
+                  <div class="days-label">days</div>
+                  <div class="valid-label">Valid until</div>
+                  <div class="valid-date">8 Jul 2026</div>
+                </div>
+              </div>
+              <p class="name-footer">Vitamin C compounds liposomal…</p>
+            </article>
+
+            <article class="card-current warning">
+              <button class="remove-sm" type="button">Remove</button>
+              <div class="row">
+                <div class="thumb">M</div>
+                <div>
+                  <div class="days-big">11</div>
+                  <div class="days-label">days</div>
+                  <div class="valid-label">Valid until</div>
+                  <div class="valid-date">16 Jul 2026</div>
+                </div>
+              </div>
+              <p class="name-footer">Organic whole milk 3.2%…</p>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="phone">
+        <h2>Proposed</h2>
+        <div class="frame">
+          <div class="header">
+            <strong>Expiry</strong>
+            <span class="pill">2 weeks</span>
+          </div>
+          <div class="list">
+            <article class="card-new">
+              <div class="stripe critical"></div>
+              <div class="card-new-body">
+                <div class="card-new-top">
+                  <div class="thumb">V</div>
+                  <div class="card-new-text">
+                    <p class="name-top">Vitamin C compounds liposomal</p>
+                    <p class="valid-line">Valid until · 8 Jul 2026</p>
+                  </div>
+                  <div class="badge critical">
+                    <div class="badge-num">3</div>
+                    <div class="badge-label">days</div>
+                  </div>
+                </div>
+                <div class="divider"></div>
+                <button class="remove-full" type="button">Remove</button>
+              </div>
+            </article>
+
+            <article class="card-new">
+              <div class="stripe warning"></div>
+              <div class="card-new-body">
+                <div class="card-new-top">
+                  <div class="thumb">M</div>
+                  <div class="card-new-text">
+                    <p class="name-top">Organic whole milk 3.2%</p>
+                    <p class="valid-line">Valid until · 16 Jul 2026</p>
+                  </div>
+                  <div class="badge warning">
+                    <div class="badge-num">11</div>
+                    <div class="badge-label">days</div>
+                  </div>
+                </div>
+                <div class="divider"></div>
+                <button class="remove-full" type="button">Remove</button>
+              </div>
+            </article>
+
+            <article class="card-new">
+              <div class="stripe soon"></div>
+              <div class="card-new-body">
+                <div class="card-new-top">
+                  <div class="thumb">Y</div>
+                  <div class="card-new-text">
+                    <p class="name-top">Greek yogurt natural 400g</p>
+                    <p class="valid-line">Valid until · 27 Jul 2026</p>
+                  </div>
+                  <div class="badge soon">
+                    <div class="badge-num">22</div>
+                    <div class="badge-label">days</div>
+                  </div>
+                </div>
+                <div class="divider"></div>
+                <button class="remove-full" type="button">Remove</button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <strong>Proposed improvements</strong>
+      <ul>
+        <li>Product name on top — readable, 2 lines max</li>
+        <li>Days count in a compact badge on the right</li>
+        <li>Left stripe for urgency instead of full red card</li>
+        <li>Full-width Remove button — easier to tap</li>
+      </ul>
+    </div>
+  </body>
+</html>

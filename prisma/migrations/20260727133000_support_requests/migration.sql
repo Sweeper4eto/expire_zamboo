@@ -1,0 +1,27 @@
+-- CreateTable
+CREATE TABLE "SupportRequest" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "userId" TEXT NOT NULL,
+    "clientId" TEXT,
+    "storeId" TEXT,
+    "topic" TEXT NOT NULL,
+    "contact" TEXT,
+    "message" TEXT NOT NULL,
+    "status" TEXT NOT NULL DEFAULT 'new',
+    "adminNote" TEXT,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL,
+    "resolvedAt" DATETIME,
+    CONSTRAINT "SupportRequest_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "SupportRequest_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT "SupportRequest_storeId_fkey" FOREIGN KEY ("storeId") REFERENCES "Store" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+-- CreateIndex
+CREATE INDEX "SupportRequest_status_createdAt_idx" ON "SupportRequest"("status", "createdAt");
+
+-- CreateIndex
+CREATE INDEX "SupportRequest_storeId_createdAt_idx" ON "SupportRequest"("storeId", "createdAt");
+
+-- CreateIndex
+CREATE INDEX "SupportRequest_userId_createdAt_idx" ON "SupportRequest"("userId", "createdAt");

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>expire365 — Price reduced · who set it (mockups)</title>
+  <style>
+    :root {
+      --bg: #000;
+      --card: #0a0a0a;
+      --border: #3f3f46;
+      --fg: #fafafa;
+      --muted: #a1a1aa;
+      --primary: #34d399;
+      --danger: #f87171;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: #09090b;
+      color: var(--fg);
+      padding: 24px 16px 64px;
+      line-height: 1.4;
+    }
+    h1 { margin: 0 0 6px; font-size: 1.35rem; }
+    .lead { color: var(--muted); max-width: 720px; margin: 0 0 8px; font-size: 14px; }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--primary);
+      border: 1px solid rgba(52,211,153,.35);
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+    .layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      align-items: flex-start;
+    }
+    .phone-wrap { width: 340px; }
+    .phone-label {
+      font-size: 12px;
+      color: #71717a;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .phone {
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      overflow: hidden;
+      background: var(--bg);
+      padding: 14px;
+    }
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      background: transparent;
+    }
+    .row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .title { margin: 0; font-size: 1rem; font-weight: 600; }
+    .hint { margin: 4px 0 0; font-size: 12px; color: var(--muted); }
+    .toggle {
+      width: 48px; height: 28px; border-radius: 999px;
+      background: var(--primary); position: relative; flex-shrink: 0;
+    }
+    .toggle span {
+      position: absolute; top: 2px; right: 2px;
+      width: 24px; height: 24px; border-radius: 50%; background: #fff;
+    }
+    .divider {
+      border: 0; border-top: 1px solid var(--border);
+      margin: 14px 0;
+    }
+    .discount-label {
+      font-size: 12px; color: var(--muted); margin-bottom: 8px;
+    }
+    .stepper {
+      display: flex; align-items: center; justify-content: center; gap: 18px;
+      margin: 4px 0 12px;
+    }
+    .arrow {
+      width: 36px; height: 36px; border-radius: 10px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--fg); font-size: 18px;
+    }
+    .pct {
+      font-size: 1.75rem; font-weight: 600; color: var(--primary);
+      min-width: 5rem; text-align: center;
+    }
+    .presets { display: flex; gap: 8px; }
+    .preset {
+      flex: 1; text-align: center;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 6px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .preset.on {
+      border-color: rgba(52,211,153,.45);
+      color: var(--primary);
+      background: rgba(52,211,153,.08);
+    }
+
+    /* Option A — muted line under hint */
+    .who-a {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .who-a strong { color: var(--primary); font-weight: 600; }
+
+    /* Option B — pill under title row */
+    .who-b {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(52,211,153,.3);
+      background: rgba(52,211,153,.08);
+      font-size: 11px;
+      color: var(--primary);
+    }
+    .who-b .dot {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 1px solid rgba(52,211,153,.45);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 9px; font-weight: 700;
+    }
+
+    /* Option C — footer under presets */
+    .who-c {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px;
+    }
+    .who-c .label { color: var(--muted); }
+    .who-c .name { color: var(--fg); font-weight: 600; }
+    .who-c .when { color: var(--muted); font-size: 11px; }
+
+    .pick {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 11px;
+      color: #71717a;
+    }
+    .pick em { color: var(--primary); font-style: normal; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <span class="badge">Mockup only — not implemented</span>
+  <h1>Price reduced — show who set it</h1>
+  <p class="lead">
+    Same card as today, plus the username of the person who enabled / last changed the discount.
+    Example user: <strong>sweps</strong>. Pick a layout; nothing is wired into the app yet.
+  </p>
+
+  <div class="layout">
+    <!-- A -->
+    <div class="phone-wrap">
+      <div class="phone-label">A — Quiet line under the hint</div>
+      <div class="phone">
+        <div class="card">
+          <div class="row">
+            <div>
+              <p class="title">Price reduced</p>
+              <p class="hint">Enable if this item is on discount.</p>
+              <p class="who-a">Reduced by <strong>sweps</strong></p>
+            </div>
+            <div class="toggle" aria-hidden><span></span></div>
+          </div>
+          <hr class="divider" />
+          <div class="discount-label">Discount</div>
+          <div class="stepper">
+            <div class="arrow">‹</div>
+            <div class="pct">-50%</div>
+            <div class="arrow">›</div>
+          </div>
+          <div class="presets">
+            <div class="preset">-25%</div>
+            <div class="preset on">-50%</div>
+            <div class="preset">-75%</div>
+          </div>
+        </div>
+      </div>
+      <p class="pick">Minimal change to current UI</p>
+    </div>
+
+    <!-- B -->
+    <div class="phone-wrap">
+      <div class="phone-label">B — Green pill / avatar chip</div>
+      <div class="phone">
+        <div class="card">
+          <div class="row">
+            <div>
+              <p class="title">Price reduced</p>
+              <p class="hint">Enable if this item is on discount.</p>
+              <span class="who-b">
+                <span class="dot">S</span>
+                Reduced by sweps
+              </span>
+            </div>
+            <div class="toggle" aria-hidden><span></span></div>
+          </div>
+          <hr class="divider" />
+          <div class="discount-label">Discount</div>
+          <div class="stepper">
+            <div class="arrow">‹</div>
+            <div class="pct">-50%</div>
+            <div class="arrow">›</div>
+          </div>
+          <div class="presets">
+            <div class="preset">-25%</div>
+            <div class="preset on">-50%</div>
+            <div class="preset">-75%</div>
+          </div>
+        </div>
+      </div>
+      <p class="pick">More visible; still above the discount controls</p>
+    </div>
+
+    <!-- C -->
+    <div class="phone-wrap">
+      <div class="phone-label">C — Footer under presets (+ date)</div>
+      <div class="phone">
+        <div class="card">
+          <div class="row">
+            <div>
+              <p class="title">Price reduced</p>
+              <p class="hint">Enable if this item is on discount.</p>
+            </div>
+            <div class="toggle" aria-hidden><span></span></div>
+          </div>
+          <hr class="divider" />
+          <div class="discount-label">Discount</div>
+          <div class="stepper">
+            <div class="arrow">‹</div>
+            <div class="pct">-50%</div>
+            <div class="arrow">›</div>
+          </div>
+          <div class="presets">
+            <div class="preset">-25%</div>
+            <div class="preset on">-50%</div>
+            <div class="preset">-75%</div>
+          </div>
+          <div class="who-c">
+            <div>
+              <div class="label">Reduced by</div>
+              <div class="name">sweps</div>
+            </div>
+            <div class="when">7 Sep 2026 · 14:22</div>
+          </div>
+        </div>
+      </div>
+      <p class="pick">Best if you also want <em>when</em> it was set</p>
+    </div>
+  </div>
+</body>
+</html>

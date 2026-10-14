@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Magazin — more goods placeholders</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, sans-serif; background: #09090b; color: #fafafa; padding: 24px 16px 48px; }
+    h1 { margin: 0 0 8px; font-size: 1.45rem; }
+    .sub, .note { color: #a1a1aa; max-width: 760px; line-height: 1.5; font-size: 14px; }
+    .note { margin: 12px 0 20px; font-size: 13px; color: #71717a; }
+    .pick { display: none; margin: 16px 0 24px; padding: 12px 16px; border: 1px solid rgba(52,211,153,.4); background: rgba(52,211,153,.1); border-radius: 12px; color: #6ee7b7; font-size: 14px; }
+    .pick.show { display: block; }
+    h2.section { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: #34d399; margin: 28px 0 12px; }
+    .favorites { display: flex; flex-wrap: wrap; gap: 12px; max-width: 960px; margin-bottom: 8px; }
+    .fav { border: 1px solid rgba(52,211,153,.45); background: rgba(52,211,153,.06); border-radius: 12px; padding: 8px 12px; font-size: 12px; color: #6ee7b7; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(188px, 1fr)); gap: 14px; max-width: 960px; }
+    .card { border: 1px solid #3f3f46; border-radius: 14px; padding: 12px; cursor: pointer; transition: .15s; }
+    .card:hover { border-color: #71717a; }
+    .card.selected { border-color: #34d399; background: rgba(52,211,153,.08); box-shadow: 0 0 0 1px rgba(52,211,153,.35); }
+    .thumb { width: 100%; aspect-ratio: 1; border-radius: 10px; border: 1px solid #3f3f46; background: rgba(9,9,11,.55); display: flex; align-items: center; justify-content: center; padding: 16%; color: #a1a1aa; margin-bottom: 10px; position: relative; overflow: hidden; }
+    .thumb.mint { border-color: rgba(52,211,153,.28); color: #6ee7b7; }
+    .thumb.mint::before { content:""; position:absolute; inset:0; background: radial-gradient(circle at center, rgba(52,211,153,.13), transparent 70%); }
+    .thumb svg { width: 100%; height: 100%; position: relative; z-index: 1; }
+    .card.selected .thumb { color: #6ee7b7; border-color: rgba(52,211,153,.4); }
+    .card h3 { margin: 0 0 4px; font-size: 13px; font-weight: 600; }
+    .card p { margin: 0; font-size: 11px; color: #a1a1aa; line-height: 1.35; }
+    .tag { display: inline-block; font-size: 10px; color: #71717a; margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+  <h1>24 more options (same style as 2 · 6 · 10)</h1>
+  <p class="sub">You liked <strong>Bottle (#2)</strong>, <strong>Shelf trio (#6)</strong>, and <strong>Grocery still life (#10)</strong>. These new designs stay in that simple line-art style — preview only.</p>
+  <p class="note">Pick by number (11–34). You can combine favorites from both pages. Nothing is applied until you say “implement”.</p>
+  <div class="favorites">
+    <span class="fav">★ Liked: #2 Bottle</span>
+    <span class="fav">★ Liked: #6 Shelf trio</span>
+    <span class="fav">★ Liked: #10 Grocery still life</span>
+  </div>
+  <p id="pick" class="pick"></p>
+
+  <h2 class="section">Bottle family (from #2)</h2>
+  <div class="grid" id="grid"></div>
+
+  <script>
+    const items = [
+      { n: 11, tag: "Bottle", title: "Two bottles", mint: true, desc: "Pair of bottles — good for drinks aisle.", svg: `<path d="M18 10h6v5c0 2-1 3-1 4l-1 3h-2l-1-3c0-1-1-2-1-4v-5z" stroke="currentColor" stroke-width="1.75"/><rect x="15" y="22" width="12" height="28" rx="3" stroke="currentColor" stroke-width="1.75"/><path d="M40 8h6v6c0 2-1 3-1 5l-1 4h-2l-1-4c0-2-1-3-1-5V8z" stroke="currentColor" stroke-width="1.75"/><rect x="37" y="24" width="12" height="26" rx="3" stroke="currentColor" stroke-width="1.75"/><path d="M8 52h48" stroke="currentColor" stroke-width="1.5" opacity=".3"/>` },
+      { n: 12, tag: "Bottle", title: "Slim water bottle", mint: false, desc: "Tall minimal bottle.", svg: `<rect x="28" y="8" width="8" height="5" rx="2" stroke="currentColor" stroke-width="1.75"/><path d="M26 13h12v38c0 2-2 3-4 3h-4c-2 0-4-1-4-3V13z" stroke="currentColor" stroke-width="1.75"/><path d="M28 24h8M28 32h8" stroke="currentColor" stroke-width="1.25" opacity=".35"/>` },
+      { n: 13, tag: "Bottle", title: "Bottle with label", mint: false, desc: "Classic bottle + label band.", svg: `<path d="M26 10h12v5l-1 4h-8l-1-4v-5z" stroke="currentColor" stroke-width="1.75"/><rect x="22" y="19" width="20" height="32" rx="4" stroke="currentColor" stroke-width="1.75"/><rect x="24" y="28" width="16" height="8" rx="1" fill="currentColor" opacity=".12" stroke="currentColor" stroke-width="1.25"/>` },
+      { n: 14, tag: "Bottle", title: "Bottle trio row", mint: true, desc: "Three bottles in a row.", svg: `<rect x="10" y="22" width="10" height="26" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="27" y="18" width="10" height="30" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="44" y="24" width="10" height="24" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 50h48" stroke="currentColor" stroke-width="1.5" opacity=".35"/>` },
+      { n: 15, tag: "Bottle", title: "Bottle + jar pair", mint: true, desc: "Like #10 but bottle-first.", svg: `<rect x="34" y="22" width="14" height="26" rx="3" stroke="currentColor" stroke-width="1.75"/><path d="M36 22v-4h10v4" stroke="currentColor" stroke-width="1.75"/><path d="M16 10h8v6c0 2-2 3-2 5l-1 4h-2l-1-4c0-2-2-3-2-5v-6z" stroke="currentColor" stroke-width="1.75"/><rect x="13" y="25" width="14" height="23" rx="3" stroke="currentColor" stroke-width="1.75"/>` },
+      { n: 16, tag: "Bottle", title: "Hero bottle", mint: true, desc: "Single large centered bottle.", svg: `<path d="M24 8h16v6c0 3-2 5-2 7l-2 6h-8l-2-6c0-2-2-4-2-7V8z" stroke="currentColor" stroke-width="2"/><rect x="20" y="27" width="24" height="28" rx="5" stroke="currentColor" stroke-width="2"/><path d="M24 36h16" stroke="currentColor" stroke-width="1.5" opacity=".35"/>` },
+
+      { n: 17, tag: "Shelf", title: "Shelf duo", mint: false, desc: "Two products on shelf — simpler #6.", svg: `<path d="M8 44h48" stroke="currentColor" stroke-width="2"/><rect x="14" y="22" width="14" height="22" rx="2" stroke="currentColor" stroke-width="1.75"/><rect x="36" y="26" width="12" height="18" rx="2" stroke="currentColor" stroke-width="1.75"/>` },
+      { n: 18, tag: "Shelf", title: "Shelf quartet", mint: false, desc: "Four items on one shelf.", svg: `<path d="M6 46h52" stroke="currentColor" stroke-width="2"/><rect x="8" y="28" width="10" height="18" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="20" y="24" width="10" height="22" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="34" y="26" width="10" height="20" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="46" y="30" width="8" height="16" rx="1" stroke="currentColor" stroke-width="1.5"/>` },
+      { n: 19, tag: "Shelf", title: "Bottle shelf", mint: true, desc: "Shelf with bottles only.", svg: `<path d="M8 42h48" stroke="currentColor" stroke-width="2"/><rect x="12" y="18" width="8" height="24" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="24" y="14" width="8" height="28" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="36" y="20" width="8" height="22" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="48" y="16" width="6" height="26" rx="2" stroke="currentColor" stroke-width="1.5"/>` },
+      { n: 20, tag: "Shelf", title: "Jar shelf", mint: false, desc: "Shelf with jars only.", svg: `<path d="M8 44h48" stroke="currentColor" stroke-width="2"/><rect x="12" y="24" width="12" height="20" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M14 24v-3h8v3" stroke="currentColor" stroke-width="1.5"/><rect x="28" y="22" width="12" height="22" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M30 22v-4h8v4" stroke="currentColor" stroke-width="1.5"/><rect x="44" y="26" width="10" height="18" rx="3" stroke="currentColor" stroke-width="1.5"/>` },
+      { n: 21, tag: "Shelf", title: "Two-tier shelf", mint: true, desc: "Two rows — more inventory feel.", svg: `<path d="M8 30h48M8 48h48" stroke="currentColor" stroke-width="1.75"/><rect x="12" y="14" width="10" height="14" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="28" y="12" width="8" height="16" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="42" y="16" width="10" height="12" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="14" y="34" width="12" height="12" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="32" y="32" width="10" height="14" rx="1" stroke="currentColor" stroke-width="1.5"/>` },
+      { n: 22, tag: "Shelf", title: "Wide shop shelf", mint: false, desc: "Broader shelf panorama.", svg: `<path d="M4 40h56" stroke="currentColor" stroke-width="2"/><rect x="6" y="22" width="8" height="18" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="16" y="18" width="8" height="22" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="26" y="24" width="8" height="16" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="36" y="20" width="8" height="20" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="46" y="26" width="8" height="14" rx="1" stroke="currentColor" stroke-width="1.4"/>` },
+
+      { n: 23, tag: "Still life", title: "Jar + bottle + box", mint: true, desc: "Three-type still life.", svg: `<rect x="8" y="30" width="14" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M10 30v-4h10v4" stroke="currentColor" stroke-width="1.5"/><path d="M28 12h8v6c0 2-2 3-2 5l-1 3h-4l-1-3c0-2-2-3-2-5v-6z" stroke="currentColor" stroke-width="1.5"/><rect x="25" y="26" width="14" height="20" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="44" y="28" width="12" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M6 48h52" stroke="currentColor" stroke-width="1.5" opacity=".3"/>` },
+      { n: 24, tag: "Still life", title: "Bag + bottle", mint: false, desc: "Bag with bottle peeking out.", svg: `<path d="M14 26h28l4 20H10l4-20z" stroke="currentColor" stroke-width="1.75"/><path d="M18 20c0 3 16 3 16 0" stroke="currentColor" stroke-width="1.75"/><rect x="26" y="14" width="8" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/>` },
+      { n: 25, tag: "Still life", title: "Basket trio", mint: false, desc: "Basket with 3 item shapes.", svg: `<path d="M12 32c2-6 28-6 32 0v14c-2 5-28 5-32 0V32z" stroke="currentColor" stroke-width="1.75"/><circle cx="22" cy="36" r="4" stroke="currentColor" stroke-width="1.25"/><rect x="28" y="33" width="6" height="7" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="36" y="34" width="5" height="6" rx="1" stroke="currentColor" stroke-width="1.25"/>` },
+      { n: 26, tag: "Still life", title: "Counter spread", mint: true, desc: "Items on a counter line.", svg: `<path d="M6 46h52" stroke="currentColor" stroke-width="2"/><rect x="10" y="28" width="12" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M30 14h8v6l-1 4h-6l-1-4v-6z" stroke="currentColor" stroke-width="1.5"/><rect x="27" y="28" width="14" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="46" y="30" width="10" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/>` },
+      { n: 27, tag: "Still life", title: "Grocery pair B", mint: true, desc: "Alt jar+bottle like #10.", svg: `<rect x="12" y="26" width="16" height="22" rx="4" stroke="currentColor" stroke-width="1.75"/><path d="M14 26v-5c0-2 3-4 6-4s6 2 6 4v5" stroke="currentColor" stroke-width="1.75"/><path d="M38 10h10v6c0 2-2 4-2 6l-1 5h-4l-1-5c0-2-2-4-2-6v-6z" stroke="currentColor" stroke-width="1.75"/><rect x="35" y="27" width="16" height="21" rx="3" stroke="currentColor" stroke-width="1.75"/><path d="M8 50h48" stroke="currentColor" stroke-width="1.5" opacity=".35"/>` },
+      { n: 28, tag: "Still life", title: "Crate display", mint: false, desc: "Crate with visible goods.", svg: `<path d="M10 30l22-8 22 8v18l-22 8-22-8V30z" stroke="currentColor" stroke-width="1.75"/><rect x="18" y="32" width="8" height="10" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="30" y="34" width="6" height="8" rx="3" stroke="currentColor" stroke-width="1.25"/><rect x="38" y="33" width="7" height="9" rx="1" stroke="currentColor" stroke-width="1.25"/>` },
+
+      { n: 29, tag: "Hybrid", title: "Bottle on shelf", mint: true, desc: "Combines #2 + #6.", svg: `<path d="M8 42h48" stroke="currentColor" stroke-width="2"/><path d="M28 14h8v5c0 2-2 4-2 6l-1 4h-4l-1-4c0-2-2-4-2-6v-5z" stroke="currentColor" stroke-width="1.75"/><rect x="24" y="29" width="16" height="13" rx="3" stroke="currentColor" stroke-width="1.75"/><rect x="44" y="30" width="8" height="12" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".7"/>` },
+      { n: 30, tag: "Hybrid", title: "Compact trio", mint: false, desc: "Tight 3-item group, no shelf.", svg: `<rect x="10" y="24" width="12" height="22" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M28 12h8v5l-1 4h-6l-1-4v-5z" stroke="currentColor" stroke-width="1.5"/><rect x="25" y="25" width="14" height="21" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="42" y="28" width="12" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/>` },
+      { n: 31, tag: "Hybrid", title: "Mini aisle", mint: true, desc: "Tiny aisle with multiple goods.", svg: `<path d="M8 24h48M8 40h48M8 56h48" stroke="currentColor" stroke-width="1.5" opacity=".45"/><rect x="12" y="12" width="8" height="10" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="26" y="28" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="42" y="44" width="8" height="10" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="14" y="44" width="6" height="10" rx="1" stroke="currentColor" stroke-width="1.25"/>` },
+      { n: 32, tag: "Hybrid", title: "Store corner", mint: false, desc: "Corner shelf + bottle.", svg: `<path d="M10 46h36M10 46V18" stroke="currentColor" stroke-width="2"/><rect x="14" y="22" width="10" height="22" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="26" y="26" width="10" height="18" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M38 12h8v6l-1 4h-6l-1-4v-6z" stroke="currentColor" stroke-width="1.5"/><rect x="35" y="28" width="12" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/>` },
+      { n: 33, tag: "Hybrid", title: "Pantry row", mint: true, desc: "Mixed pantry lineup.", svg: `<path d="M6 48h52" stroke="currentColor" stroke-width="2"/><rect x="8" y="26" width="10" height="22" rx="2" stroke="currentColor" stroke-width="1.4"/><rect x="20" y="28" width="10" height="20" rx="2" stroke="currentColor" stroke-width="1.4"/><rect x="32" y="24" width="10" height="24" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M46 16h6v5l-1 3h-4l-1-3v-5z" stroke="currentColor" stroke-width="1.4"/><rect x="44" y="27" width="10" height="21" rx="2" stroke="currentColor" stroke-width="1.4"/>` },
+      { n: 34, tag: "Hybrid", title: "Grocery still life C", mint: true, desc: "Closest sibling to #10.", svg: `<rect x="10" y="30" width="16" height="18" rx="3" stroke="currentColor" stroke-width="1.75"/><path d="M12 30v-5c0-2 3-3 6-3s6 1 6 3v5" stroke="currentColor" stroke-width="1.75"/><path d="M36 12h10v5c0 2-1 3-1 5l-1 4h-6l-1-4c0-2-1-3-1-5v-5z" stroke="currentColor" stroke-width="1.75"/><rect x="33" y="26" width="16" height="22" rx="3" stroke="currentColor" stroke-width="1.75"/><rect x="52" y="32" width="8" height="16" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".65"/><path d="M6 50h54" stroke="currentColor" stroke-width="1.5" opacity=".35"/>` },
+    ];
+
+    const grid = document.getElementById("grid");
+    const pick = document.getElementById("pick");
+
+    items.forEach((item) => {
+      const card = document.createElement("article");
+      card.className = "card";
+      card.dataset.n = item.n;
+      card.innerHTML = `
+        <span class="tag">${item.tag}</span>
+        <div class="thumb${item.mint ? " mint" : ""}">
+          <svg viewBox="0 0 64 64" fill="none">${item.svg}</svg>
+        </div>
+        <h3>${item.n}. ${item.title}</h3>
+        <p>${item.desc}</p>`;
+      card.addEventListener("click", () => {
+        document.querySelectorAll(".card").forEach((c) => c.classList.remove("selected"));
+        card.classList.add("selected");
+        pick.textContent = "Selected: #" + item.n + " " + item.title + " — you can also keep #2, #6, #10. Reply: implement " + item.n;
+        pick.classList.add("show");
+      });
+      grid.appendChild(card);
+    });
+  </script>
+</body>
+</html>

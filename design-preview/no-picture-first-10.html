@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Magazin — first 10 placeholders</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+      background: #09090b;
+      color: #fafafa;
+      padding: 24px 16px 48px;
+    }
+    h1 { margin: 0 0 8px; font-size: 1.5rem; }
+    .sub { color: #a1a1aa; max-width: 680px; line-height: 1.5; margin-bottom: 16px; }
+    .pick {
+      display: none;
+      margin: 0 0 24px;
+      padding: 12px 16px;
+      border: 1px solid rgba(52,211,153,.4);
+      background: rgba(52,211,153,.1);
+      border-radius: 12px;
+      color: #6ee7b7;
+    }
+    .pick.show { display: block; }
+    .current {
+      max-width: 900px;
+      margin-bottom: 28px;
+      padding: 16px;
+      border: 1px solid #3f3f46;
+      border-radius: 16px;
+    }
+    .current-label { font-size: 12px; color: #a1a1aa; margin-bottom: 10px; }
+    .current-box {
+      width: 96px; height: 96px;
+      border: 1px solid #3f3f46;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; font-size: 11px; color: #a1a1aa; padding: 8px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      max-width: 900px;
+    }
+    .card {
+      border: 1px solid #3f3f46;
+      border-radius: 16px;
+      padding: 14px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+    .card:hover { border-color: #71717a; }
+    .card.selected {
+      border-color: #34d399;
+      background: rgba(52,211,153,.08);
+      box-shadow: 0 0 0 1px rgba(52,211,153,.35);
+    }
+    .thumb {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .card h2 { margin: 0 0 6px; font-size: 14px; }
+    .card p { margin: 0; font-size: 12px; color: #a1a1aa; line-height: 1.4; }
+    /* variant shells */
+    .shell-default { border: 1px solid #3f3f46; background: rgba(9,9,11,.55); color: #a1a1aa; }
+    .shell-mint { border: 1px solid rgba(52,211,153,.25); background: #09090b; color: #6ee7b7; }
+    .shell-mint::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at center, rgba(52,211,153,.18), transparent 68%);
+      pointer-events: none;
+    }
+    .shell-soft { border: 1px solid #3f3f46; background: rgba(39,39,42,.55); color: #a1a1aa; }
+    .shell-dashed { border: 1px dashed #3f3f46; background: rgba(9,9,11,.4); color: #a1a1aa; }
+    .icon { width: 42%; height: 42%; position: relative; z-index: 1; }
+    .polaroid-wrap { width: 78%; height: 88%; display: flex; flex-direction: column; background: #18181b; border: 1px solid #52525b; padding: 6px; border-radius: 2px; }
+    .polaroid-photo { flex: 1; border: 1px solid #3f3f46; background: rgba(9,9,11,.6); display: flex; align-items: center; justify-content: center; border-radius: 2px; }
+    .polaroid-photo svg { width: 55%; height: 55%; color: #71717a; }
+    .polaroid-foot { height: 12px; background: #27272a; border-radius: 2px; margin-top: 6px; }
+    .barcode-bg { position: absolute; top: 12px; left: 12%; right: 12%; height: 32px; display: flex; align-items: flex-end; justify-content: center; gap: 3px; opacity: .25; }
+    .barcode-bg span { width: 2px; background: #34d399; border-radius: 1px; }
+    .grid-bg {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(161,161,170,.22) 1px, transparent 1px);
+      background-size: 10px 10px;
+    }
+    .grid-circle {
+      width: 44%; height: 44%; border-radius: 999px;
+      border: 1px solid #52525b; background: rgba(24,24,27,.9);
+      display: flex; align-items: center; justify-content: center; z-index: 1;
+    }
+    .grid-circle svg { width: 50%; height: 50%; }
+    .bracket { position: absolute; width: 16px; height: 16px; border-color: rgba(52,211,153,.7); border-style: solid; }
+    .bracket.tl { top: 10px; left: 10px; border-width: 2px 0 0 2px; }
+    .bracket.tr { top: 10px; right: 10px; border-width: 2px 2px 0 0; }
+    .bracket.bl { bottom: 10px; left: 10px; border-width: 0 0 2px 2px; }
+    .bracket.br { bottom: 10px; right: 10px; border-width: 0 2px 2px 0; }
+    .landscape { width: 70%; height: 70%; color: #a1a1aa; opacity: .85; }
+  </style>
+</head>
+<body>
+  <h1>First 10 placeholders — pick 1–10</h1>
+  <p class="sub">Original set (UI-style, not individual product icons). Preview only — double-click this file, no server. Click a card to select.</p>
+  <p id="pick" class="pick"></p>
+
+  <section class="current">
+    <div class="current-label">Current app (unchanged)</div>
+    <div class="current-box">No picture</div>
+  </section>
+
+  <div class="grid">
+    <article class="card" data-n="1">
+      <div class="thumb shell-dashed">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1V9a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="13" r="3" stroke="currentColor" stroke-width="1.5"/></svg>
+      </div>
+      <h2>1. Camera frame</h2>
+      <p>Dashed border + camera icon — suggests “add a photo”.</p>
+    </article>
+
+    <article class="card" data-n="2">
+      <div class="thumb shell-default">
+        <div class="polaroid-wrap">
+          <div class="polaroid-photo">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="8.5" cy="10" r="1.5" fill="currentColor"/><path d="M3 16l5-4 4 3 3-2 6 5" stroke="currentColor" stroke-width="1.5"/></svg>
+          </div>
+          <div class="polaroid-foot"></div>
+        </div>
+      </div>
+      <h2>2. Polaroid</h2>
+      <p>Empty photo card — classic “missing image” look.</p>
+    </article>
+
+    <article class="card" data-n="3">
+      <div class="thumb shell-default">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5" stroke="currentColor" stroke-width="1.5"/></svg>
+      </div>
+      <h2>3. Product box</h2>
+      <p>3D package icon — retail / inventory feel.</p>
+    </article>
+
+    <article class="card" data-n="4">
+      <div class="thumb shell-default">
+        <div class="barcode-bg"><span style="height:60%"></span><span style="height:90%"></span><span style="height:45%"></span><span style="height:75%"></span><span style="height:55%"></span><span style="height:85%"></span><span style="height:40%"></span><span style="height:70%"></span><span style="height:50%"></span><span style="height:80%"></span><span style="height:65%"></span><span style="height:95%"></span></div>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" style="z-index:1"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="8.5" cy="10" r="1.5" fill="currentColor"/><path d="M3 16l5-4 4 3 3-2 6 5" stroke="currentColor" stroke-width="1.5"/></svg>
+      </div>
+      <h2>4. Barcode slot</h2>
+      <p>Barcode lines + product — on-brand for Magazin scanning.</p>
+    </article>
+
+    <article class="card" data-n="5">
+      <div class="thumb shell-mint">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="8.5" cy="10" r="1.5" fill="currentColor"/><path d="M3 16l5-4 4 3 3-2 6 5" stroke="currentColor" stroke-width="1.5"/></svg>
+      </div>
+      <h2>5. Mint glow</h2>
+      <p>Soft mint halo — polished, matches app accent.</p>
+    </article>
+
+    <article class="card" data-n="6">
+      <div class="thumb shell-default">
+        <div class="grid-bg"></div>
+        <div class="grid-circle">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="8.5" cy="10" r="1.5" fill="currentColor"/><path d="M3 16l5-4 4 3 3-2 6 5" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+      </div>
+      <h2>6. Grid canvas</h2>
+      <p>Dot grid + icon — modern, intentional empty state.</p>
+    </article>
+
+    <article class="card" data-n="7">
+      <div class="thumb shell-default">
+        <span class="bracket tl"></span><span class="bracket tr"></span><span class="bracket bl"></span><span class="bracket br"></span>
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1V9a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="13" r="3" stroke="currentColor" stroke-width="1.5"/></svg>
+      </div>
+      <h2>7. Scan corners</h2>
+      <p>Scanner brackets — “capture product photo”.</p>
+    </article>
+
+    <article class="card" data-n="8">
+      <div class="thumb shell-soft">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="8.5" cy="10" r="1.5" fill="currentColor"/><path d="M3 16l5-4 4 3 3-2 6 5" stroke="currentColor" stroke-width="1.5"/></svg>
+      </div>
+      <h2>8. Soft tile</h2>
+      <p>Filled grey tile — feels finished, not broken.</p>
+    </article>
+
+    <article class="card" data-n="9">
+      <div class="thumb shell-default">
+        <svg class="landscape" viewBox="0 0 80 80" fill="none"><rect x="8" y="12" width="64" height="48" rx="4" stroke="currentColor" stroke-width="2"/><path d="M8 48l16-12 12 9 10-7 26 20" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="26" cy="28" r="4" fill="currentColor" opacity="0.5"/><path d="M52 22h8M56 18v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.35"/></svg>
+      </div>
+      <h2>9. Line art landscape</h2>
+      <p>Mountains in a frame — friendly generic placeholder.</p>
+    </article>
+
+    <article class="card" data-n="10">
+      <div class="thumb shell-default" style="border-color:#52525b">
+        <svg class="icon" style="width:48%;height:48%" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="8.5" cy="10" r="1.5" fill="currentColor"/><path d="M3 16l5-4 4 3 3-2 6 5" stroke="currentColor" stroke-width="1.5"/></svg>
+      </div>
+      <h2>10. Icon only</h2>
+      <p>Just the image icon — cleanest, most app-like.</p>
+    </article>
+  </div>
+
+  <script>
+    const pick = document.getElementById("pick");
+    document.querySelectorAll(".card").forEach((card) => {
+      card.addEventListener("click", () => {
+        document.querySelectorAll(".card").forEach((c) => c.classList.remove("selected"));
+        card.classList.add("selected");
+        pick.textContent = "Selected: " + card.querySelector("h2").textContent + " — reply: implement " + card.dataset.n;
+        pick.classList.add("show");
+      });
+    });
+  </script>
+</body>
+</html>

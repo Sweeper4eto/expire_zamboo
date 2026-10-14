@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Magazin — 30 no-picture options</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+      background: #09090b;
+      color: #fafafa;
+      padding: 24px 16px 48px;
+    }
+    h1 { margin: 0 0 8px; font-size: 1.5rem; }
+    .sub { color: #a1a1aa; max-width: 640px; line-height: 1.5; margin-bottom: 8px; }
+    .pick {
+      display: none;
+      margin: 16px 0 24px;
+      padding: 12px 16px;
+      border: 1px solid rgba(52,211,153,.4);
+      background: rgba(52,211,153,.1);
+      border-radius: 12px;
+      color: #6ee7b7;
+    }
+    .pick.show { display: block; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px;
+      max-width: 1100px;
+    }
+    .card {
+      border: 1px solid #3f3f46;
+      border-radius: 16px;
+      padding: 12px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+      position: relative;
+    }
+    .card:hover { border-color: #71717a; }
+    .card.selected {
+      border-color: #34d399;
+      background: rgba(52,211,153,.08);
+      box-shadow: 0 0 0 1px rgba(52,211,153,.35);
+    }
+    .num {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #34d399;
+      background: rgba(52,211,153,.15);
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .thumb {
+      width: 100%;
+      aspect-ratio: 1;
+      border: 1px solid #3f3f46;
+      border-radius: 12px;
+      background: rgba(9,9,11,.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18%;
+      color: #a1a1aa;
+      margin-bottom: 10px;
+    }
+    .card.selected .thumb { color: #6ee7b7; border-color: rgba(52,211,153,.35); }
+    .thumb svg { width: 100%; height: 100%; }
+    .card h2 { margin: 0 0 4px; font-size: 13px; font-weight: 600; }
+    .card p { margin: 0; font-size: 11px; color: #a1a1aa; line-height: 1.35; }
+    .current {
+      max-width: 1100px;
+      margin-bottom: 28px;
+      padding: 16px;
+      border: 1px solid #3f3f46;
+      border-radius: 16px;
+    }
+    .current-label { font-size: 12px; color: #a1a1aa; margin-bottom: 10px; }
+    .current-box {
+      width: 80px;
+      height: 80px;
+      border: 1px solid #3f3f46;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 10px;
+      color: #a1a1aa;
+      padding: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h1>30 goods placeholders — pick 1–30</h1>
+  <p class="sub">Preview only. Open this file directly in your browser — no server needed. Click a card, then tell me the number in chat.</p>
+  <p id="pick" class="pick"></p>
+
+  <section class="current">
+    <div class="current-label">Current app (unchanged)</div>
+    <div class="current-box">No picture</div>
+  </section>
+
+  <div class="grid">
+    <article class="card" data-n="1" tabindex="0">
+      <div class="num">1</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M22 14h20l4 8v30H18V22l4-8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M26 14V10h12v4" stroke="currentColor" stroke-width="2"/><path d="M24 28h16M24 34h12" stroke="currentColor" stroke-width="1.5" opacity="0.4"/></svg>
+      </div>
+      <h2>1. Milk carton</h2>
+      <p>Fresh dairy</p>
+    </article>
+
+    <article class="card" data-n="2" tabindex="0">
+      <div class="num">2</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M14 38c0-12 8-18 18-18s18 6 18 18v8H14v-8z" stroke="currentColor" stroke-width="2"/><path d="M20 30c4-6 10-8 12-8s8 2 12 8" stroke="currentColor" stroke-width="1.5" opacity="0.4"/><path d="M18 46h28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <h2>2. Bread loaf</h2>
+      <p>Bakery</p>
+    </article>
+
+    <article class="card" data-n="3" tabindex="0">
+      <div class="num">3</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><circle cx="32" cy="36" r="14" stroke="currentColor" stroke-width="2"/><path d="M32 22c2-4 6-6 8-6M32 22v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M38 18c2 1 3 3 3 5" stroke="currentColor" stroke-width="1.5" opacity="0.5"/></svg>
+      </div>
+      <h2>3. Apple</h2>
+      <p>Produce</p>
+    </article>
+
+    <article class="card" data-n="4" tabindex="0">
+      <div class="num">4</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M14 30h36v16H14V30z" stroke="currentColor" stroke-width="2"/><ellipse cx="22" cy="38" rx="4" ry="5" stroke="currentColor" stroke-width="1.5"/><ellipse cx="32" cy="38" rx="4" ry="5" stroke="currentColor" stroke-width="1.5"/><ellipse cx="42" cy="38" rx="4" ry="5" stroke="currentColor" stroke-width="1.5"/></svg>
+      </div>
+      <h2>4. Egg carton</h2>
+      <p>Chilled</p>
+    </article>
+
+    <article class="card" data-n="5" tabindex="0">
+      <div class="num">5</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M16 44L32 18l16 26H16z" stroke="currentColor" stroke-width="2"/><circle cx="26" cy="34" r="2" fill="currentColor" opacity="0.35"/><circle cx="34" cy="30" r="2" fill="currentColor" opacity="0.35"/><circle cx="38" cy="38" r="2" fill="currentColor" opacity="0.35"/></svg>
+      </div>
+      <h2>5. Cheese wedge</h2>
+      <p>Deli / dairy</p>
+    </article>
+
+    <article class="card" data-n="6" tabindex="0">
+      <div class="num">6</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M22 20h20l-2 28H24L22 20z" stroke="currentColor" stroke-width="2"/><path d="M20 20h24" stroke="currentColor" stroke-width="2"/><path d="M26 30h12" stroke="currentColor" stroke-width="1.5" opacity="0.4"/></svg>
+      </div>
+      <h2>6. Yogurt cup</h2>
+      <p>Refrigerated</p>
+    </article>
+
+    <article class="card" data-n="7" tabindex="0">
+      <div class="num">7</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="18" y="14" width="28" height="38" rx="2" stroke="currentColor" stroke-width="2"/><rect x="22" y="20" width="20" height="12" rx="1" stroke="currentColor" stroke-width="1.5" opacity="0.45"/><path d="M22 38h20M22 44h14" stroke="currentColor" stroke-width="1.5" opacity="0.35"/></svg>
+      </div>
+      <h2>7. Cereal box</h2>
+      <p>Dry goods</p>
+    </article>
+
+    <article class="card" data-n="8" tabindex="0">
+      <div class="num">8</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M24 12h16l6 40H18l6-40z" stroke="currentColor" stroke-width="2"/><path d="M22 22h20M24 32h16" stroke="currentColor" stroke-width="1.5" opacity="0.4"/><circle cx="32" cy="28" r="4" stroke="currentColor" stroke-width="1.5" opacity="0.35"/></svg>
+      </div>
+      <h2>8. Chips bag</h2>
+      <p>Snacks</p>
+    </article>
+
+    <article class="card" data-n="9" tabindex="0">
+      <div class="num">9</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="24" y="10" width="16" height="6" rx="2" stroke="currentColor" stroke-width="2"/><path d="M22 16h20v34c0 2-2 4-4 4h-12c-2 0-4-2-4-4V16z" stroke="currentColor" stroke-width="2"/><path d="M24 28h16" stroke="currentColor" stroke-width="1.5" opacity="0.35"/></svg>
+      </div>
+      <h2>9. Water bottle</h2>
+      <p>Beverages</p>
+    </article>
+
+    <article class="card" data-n="10" tabindex="0">
+      <div class="num">10</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M28 10h8v8c0 4 8 8 8 16v18H20V34c0-8 8-12 8-16v-8z" stroke="currentColor" stroke-width="2"/><path d="M22 40h20" stroke="currentColor" stroke-width="1.5" opacity="0.35"/></svg>
+      </div>
+      <h2>10. Wine bottle</h2>
+      <p>Bottles</p>
+    </article>
+
+    <article class="card" data-n="11" tabindex="0">
+      <div class="num">11</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="12" y="20" width="40" height="28" rx="2" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="34" r="10" stroke="currentColor" stroke-width="1.5" opacity="0.45"/><path d="M32 24v20M22 34h20" stroke="currentColor" stroke-width="1.25" opacity="0.3"/></svg>
+      </div>
+      <h2>11. Frozen pizza</h2>
+      <p>Freezer</p>
+    </article>
+
+    <article class="card" data-n="12" tabindex="0">
+      <div class="num">12</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M32 12c6 8 10 14 10 20a10 10 0 11-20 0c0-6 4-12 10-20z" stroke="currentColor" stroke-width="2"/><path d="M24 44l8 10 8-10" stroke="currentColor" stroke-width="2"/></svg>
+      </div>
+      <h2>12. Ice cream</h2>
+      <p>Frozen dessert</p>
+    </article>
+
+    <article class="card" data-n="13" tabindex="0">
+      <div class="num">13</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M16 36c0-10 8-16 16-16s16 6 16 16" stroke="currentColor" stroke-width="2"/><ellipse cx="32" cy="36" rx="16" ry="10" stroke="currentColor" stroke-width="2"/><path d="M24 34c2 2 6 3 8 3s6-1 8-3" stroke="currentColor" stroke-width="1.5" opacity="0.4"/></svg>
+      </div>
+      <h2>13. Meat steak</h2>
+      <p>Butcher</p>
+    </article>
+
+    <article class="card" data-n="14" tabindex="0">
+      <div class="num">14</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M12 32c8-8 20-10 32-4l-6 4 6 4c-12 6-24 4-32-4z" stroke="currentColor" stroke-width="2"/><circle cx="38" cy="28" r="2" fill="currentColor" opacity="0.5"/></svg>
+      </div>
+      <h2>14. Fish</h2>
+      <p>Seafood</p>
+    </article>
+
+    <article class="card" data-n="15" tabindex="0">
+      <div class="num">15</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M28 18c-2 8-2 16 0 28M32 16c0 12 0 22 2 30M36 18c2 8 2 16 0 28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M26 16c2-4 6-6 10-6M30 14c0-4 4-6 8-4" stroke="currentColor" stroke-width="1.5" opacity="0.45"/></svg>
+      </div>
+      <h2>15. Carrot bundle</h2>
+      <p>Vegetables</p>
+    </article>
+
+    <article class="card" data-n="16" tabindex="0">
+      <div class="num">16</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M20 44c8-20 16-26 24-22M24 46c6-14 12-20 20-18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M40 20c2 2 2 6 0 8" stroke="currentColor" stroke-width="1.5" opacity="0.45"/></svg>
+      </div>
+      <h2>16. Bananas</h2>
+      <p>Fruit</p>
+    </article>
+
+    <article class="card" data-n="17" tabindex="0">
+      <div class="num">17</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><circle cx="32" cy="36" r="13" stroke="currentColor" stroke-width="2"/><path d="M26 22l6-4 6 4M32 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <h2>17. Tomato</h2>
+      <p>Produce</p>
+    </article>
+
+    <article class="card" data-n="18" tabindex="0">
+      <div class="num">18</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="18" y="16" width="28" height="34" rx="3" stroke="currentColor" stroke-width="2"/><path d="M22 26c4 4 8 4 12 0s8-4 12 0M22 34c4 4 8 4 12 0s8-4 12 0" stroke="currentColor" stroke-width="1.5" opacity="0.45"/></svg>
+      </div>
+      <h2>18. Pasta pack</h2>
+      <p>Dry groceries</p>
+    </article>
+
+    <article class="card" data-n="19" tabindex="0">
+      <div class="num">19</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M20 18c4-4 20-4 24 0v30c-4 4-20 4-24 0V18z" stroke="currentColor" stroke-width="2"/><path d="M24 28h16M24 36h12" stroke="currentColor" stroke-width="1.5" opacity="0.35"/></svg>
+      </div>
+      <h2>19. Rice bag</h2>
+      <p>Bulk dry</p>
+    </article>
+
+    <article class="card" data-n="20" tabindex="0">
+      <div class="num">20</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M20 26h24v22c0 2-2 4-4 4H24c-2 0-4-2-4-4V26z" stroke="currentColor" stroke-width="2"/><path d="M22 26c0-6 6-10 10-10s10 4 10 10" stroke="currentColor" stroke-width="2"/><path d="M24 36h16" stroke="currentColor" stroke-width="1.5" opacity="0.35"/></svg>
+      </div>
+      <h2>20. Honey jar</h2>
+      <p>Spreads</p>
+    </article>
+
+    <article class="card" data-n="21" tabindex="0">
+      <div class="num">21</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M16 26h32l-4 22H20l-4-22z" stroke="currentColor" stroke-width="2"/><path d="M22 18c0 4 20 4 20 0" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="34" r="3" stroke="currentColor" stroke-width="1.25"/><rect x="30" y="31" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.25"/><path d="M38 33h4v4h-4" stroke="currentColor" stroke-width="1.25"/></svg>
+      </div>
+      <h2>21. Shopping basket</h2>
+      <p>Mixed items</p>
+    </article>
+
+    <article class="card" data-n="22" tabindex="0">
+      <div class="num">22</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M14 30c4-8 32-8 36 0v16c-4 6-32 6-36 0V30z" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="34" r="4" stroke="currentColor" stroke-width="1.25"/><path d="M34 30c0 4 2 8 6 8M40 32l4-6" stroke="currentColor" stroke-width="1.25"/></svg>
+      </div>
+      <h2>22. Produce basket</h2>
+      <p>Market</p>
+    </article>
+
+    <article class="card" data-n="23" tabindex="0">
+      <div class="num">23</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="14" y="24" width="36" height="22" rx="3" stroke="currentColor" stroke-width="2"/><path d="M14 32h36" stroke="currentColor" stroke-width="1.5" opacity="0.35"/><rect x="20" y="28" width="10" height="8" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="34" y="28" width="10" height="8" rx="1" stroke="currentColor" stroke-width="1.25"/></svg>
+      </div>
+      <h2>23. Deli pack</h2>
+      <p>Ready meals</p>
+    </article>
+
+    <article class="card" data-n="24" tabindex="0">
+      <div class="num">24</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M16 38c4-14 12-20 20-18s12 8 12 18" stroke="currentColor" stroke-width="2"/><path d="M20 36c4-6 8-8 12-8s8 2 12 8" stroke="currentColor" stroke-width="1.5" opacity="0.4"/></svg>
+      </div>
+      <h2>24. Croissant</h2>
+      <p>Bakery</p>
+    </article>
+
+    <article class="card" data-n="25" tabindex="0">
+      <div class="num">25</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M18 24h28l5 24H13l5-24z" stroke="currentColor" stroke-width="2"/><path d="M22 18c0 4 20 4 20 0" stroke="currentColor" stroke-width="2"/><rect x="22" y="30" width="8" height="10" rx="1" stroke="currentColor" stroke-width="1.25"/><circle cx="38" cy="34" r="4" stroke="currentColor" stroke-width="1.25"/><path d="M30 38h8" stroke="currentColor" stroke-width="1.25"/></svg>
+      </div>
+      <h2>25. Mixed grocery bag</h2>
+      <p>Varied stock</p>
+    </article>
+
+    <article class="card" data-n="26" tabindex="0">
+      <div class="num">26</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M10 24h44M10 38h44M10 52h44" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="10" height="8" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="28" y="28" width="12" height="8" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="42" y="42" width="10" height="8" rx="1" stroke="currentColor" stroke-width="1.25"/></svg>
+      </div>
+      <h2>26. Warehouse shelf</h2>
+      <p>Backroom stock</p>
+    </article>
+
+    <article class="card" data-n="27" tabindex="0">
+      <div class="num">27</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><ellipse cx="32" cy="38" rx="18" ry="10" stroke="currentColor" stroke-width="2"/><path d="M20 34c4-8 8-12 12-12s8 4 12 12" stroke="currentColor" stroke-width="1.5" opacity="0.45"/><path d="M24 30l4 6M32 28l2 8M40 30l-4 6" stroke="currentColor" stroke-width="1.25"/></svg>
+      </div>
+      <h2>27. Fresh salad</h2>
+      <p>Prepared food</p>
+    </article>
+
+    <article class="card" data-n="28" tabindex="0">
+      <div class="num">28</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="20" y="18" width="24" height="32" rx="3" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="30" r="6" stroke="currentColor" stroke-width="1.5" opacity="0.45"/><path d="M28 30h8M32 26v8" stroke="currentColor" stroke-width="1.25" opacity="0.35"/></svg>
+      </div>
+      <h2>28. Orange juice</h2>
+      <p>Juice carton</p>
+    </article>
+
+    <article class="card" data-n="29" tabindex="0">
+      <div class="num">29</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M12 46h40" stroke="currentColor" stroke-width="2"/><rect x="16" y="28" width="10" height="18" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="28" y="24" width="8" height="22" rx="1" stroke="currentColor" stroke-width="1.5"/><circle cx="44" cy="36" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M20 20h24l-4 8H24l-4-8z" stroke="currentColor" stroke-width="1.5"/></svg>
+      </div>
+      <h2>29. Mini market scene</h2>
+      <p>Multiple goods</p>
+    </article>
+
+    <article class="card" data-n="30" tabindex="0">
+      <div class="num">30</div>
+      <div class="thumb">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="14" y="26" width="36" height="22" rx="2" stroke="currentColor" stroke-width="2"/><path d="M32 26V16M22 20c0-4 4-6 10-4M42 20c0-4-4-6-10-4M32 16v10" stroke="currentColor" stroke-width="2"/></svg>
+      </div>
+      <h2>30. Gift hamper</h2>
+      <p>Bundled goods</p>
+    </article></div>
+
+  <script>
+    const pick = document.getElementById("pick");
+    document.querySelectorAll(".card").forEach((card) => {
+      card.addEventListener("click", () => {
+        document.querySelectorAll(".card").forEach((c) => c.classList.remove("selected"));
+        card.classList.add("selected");
+        const n = card.dataset.n;
+        const title = card.querySelector("h2").textContent;
+        pick.textContent = "Selected: " + title + " — reply in chat with: implement " + n;
+        pick.classList.add("show");
+      });
+    });
+  </script>
+</body>
+</html>
